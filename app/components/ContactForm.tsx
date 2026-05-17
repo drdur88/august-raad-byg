@@ -46,8 +46,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}
-           className="grid-cols-form">
+      <div className="grid-form-row">
         <div>
           <label style={labelStyle}>Navn</label>
           <input

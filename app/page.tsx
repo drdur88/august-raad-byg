@@ -93,19 +93,10 @@ export default function Home() {
       <Navbar />
 
       {/* ── HERO ── */}
-      <section
-        id="hero"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          minHeight: "100vh",
-          paddingTop: "80px",
-          overflow: "hidden",
-        }}
-        className="max-lg:grid-cols-1"
-      >
+      <section id="hero" className="grid-hero">
         {/* Left: text */}
         <div
+          className="hero-left-pad"
           style={{
             display: "flex", flexDirection: "column", justifyContent: "center",
             padding: "6rem 5vw 6rem 8vw",
@@ -181,7 +172,7 @@ export default function Home() {
 
           {/* Diagonal accent */}
           <div
-            className="hidden lg:block"
+            className="hero-diagonal"
             style={{
               position: "absolute", right: -40, top: 0, bottom: 0, width: 80,
               background: "var(--off-white)",
@@ -193,8 +184,8 @@ export default function Home() {
 
         {/* Right: image + stats */}
         <div
+          className="hero-right-mh"
           style={{ position: "relative", overflow: "hidden", background: "var(--navy)" }}
-          className="max-lg:min-h-[300px]"
         >
           <Image
             src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=80"
@@ -214,11 +205,11 @@ export default function Home() {
 
           {/* Stats */}
           <div
+            className="hero-stats"
             style={{
               position: "absolute", bottom: "3rem", left: "3rem",
               display: "flex", gap: "2.5rem",
             }}
-            className="hidden lg:flex"
           >
             {[
               { num: "15+", label: "Års erfaring" },
@@ -263,15 +254,7 @@ export default function Home() {
           Vores <em>ydelser</em>
         </h2>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "2px",
-            marginTop: "4rem",
-          }}
-          className="max-lg:grid-cols-2 max-md:grid-cols-1"
-        >
+        <div className="grid-services">
           {services.map((s, i) => (
             <FadeUp key={s.num} delay={Math.floor(i % 3) * 0.1}>
               <div className="service-card" style={{ height: "100%" }}>
@@ -311,22 +294,14 @@ export default function Home() {
       </section>
 
       {/* ── ABOUT ── */}
-      <section
-        id="about"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          overflow: "hidden",
-        }}
-        className="max-lg:grid-cols-1"
-      >
+      <section id="about" className="grid-about">
         {/* Image side */}
         <div
+          className="about-img-mh"
           style={{
             background: "var(--navy)",
             minHeight: 600, position: "relative", overflow: "hidden",
           }}
-          className="max-lg:min-h-[320px]"
         >
           <Image
             src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80"
@@ -357,12 +332,12 @@ export default function Home() {
 
         {/* Content side */}
         <div
+          className="about-content-pad"
           style={{
             padding: "6rem 5vw 6rem 5rem",
             display: "flex", flexDirection: "column", justifyContent: "center",
             background: "var(--off-white)",
           }}
-          className="max-lg:p-10"
         >
           <p className="section-label">Om August Råd &amp; Byg</p>
           <h2 className="section-title">
@@ -438,10 +413,7 @@ export default function Home() {
             }}
           />
 
-          <div
-            style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}
-            className="max-md:grid-cols-2 gap-y-10"
-          >
+          <div className="grid-process">
             {processSteps.map((step, i) => (
               <FadeUp key={step.num} delay={i * 0.1}>
                 <div style={{ padding: "0 1.5rem", textAlign: "center" }}>
@@ -494,11 +466,7 @@ export default function Home() {
         </h2>
 
         <div
-          style={{
-            display: "grid", gridTemplateColumns: "1fr 1fr",
-            gap: "6rem", marginTop: "4rem", alignItems: "start",
-          }}
-          className="max-lg:grid-cols-1 max-lg:gap-10"
+          className="grid-contact"
         >
           {/* Contact info */}
           <div>

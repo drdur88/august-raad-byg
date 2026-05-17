@@ -49,8 +49,8 @@ export default function Navbar() {
         </a>
 
         {/* Desktop links */}
-        <ul style={{ display: "flex", gap: "2.5rem", listStyle: "none", margin: 0, padding: 0 }}
-            className="hidden md:flex">
+        <ul style={{ gap: "2.5rem", listStyle: "none", margin: 0, padding: 0 }}
+            className="hidden md:flex items-center">
           {links.map((l) => (
             <li key={l.href}>
               <a

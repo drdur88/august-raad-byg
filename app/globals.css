@@ -157,6 +157,39 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 }
 .form-submit:hover { background: var(--gold); transform: translateY(-2px); }
 
+/* ── Responsive layout grids ── */
+.grid-hero    { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; padding-top: 80px; overflow: hidden; }
+.grid-about   { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+.grid-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 4rem; }
+.grid-process  { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 4rem; }
+.grid-contact  { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-top: 4rem; align-items: start; }
+.grid-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+@media (max-width: 1024px) {
+  .grid-hero   { grid-template-columns: 1fr; min-height: auto; }
+  .grid-about  { grid-template-columns: 1fr; }
+  .grid-contact { grid-template-columns: 1fr; gap: 3rem; }
+  .grid-services { grid-template-columns: repeat(2, 1fr); }
+  .grid-process  { grid-template-columns: repeat(2, 1fr); }
+  .hero-left-pad { padding: 5rem 6vw 3rem !important; }
+  .hero-diagonal { display: none !important; }
+  .hero-stats    { display: none !important; }
+  .hero-right-mh { min-height: 300px; }
+  .about-img-mh  { min-height: 320px; }
+  .about-content-pad { padding: 4rem 6vw !important; }
+  section { padding: 5rem 6vw !important; }
+}
+
+@media (max-width: 768px) {
+  .grid-services { grid-template-columns: 1fr; }
+  .grid-process  { grid-template-columns: 1fr 1fr; }
+  .grid-form-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .grid-process { grid-template-columns: 1fr; }
+}
+
 /* ── Footer links ── */
 .footer-link {
   color: rgba(255,255,255,.5);
