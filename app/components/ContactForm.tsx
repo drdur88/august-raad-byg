@@ -2,42 +2,42 @@
 
 import { useState } from "react";
 
-// Defined outside component to avoid recreation on every render
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  padding: "12px 16px",
-  border: "1px solid #d1d5db",
-  borderRadius: "4px",
-  fontFamily: "Arial, sans-serif",
-  fontSize: "15px",
-  backgroundColor: "#fff",
-  color: "var(--text-dark)",
-  transition: "border-color 0.15s ease, box-shadow 0.15s ease",
+const labelStyle: React.CSSProperties = {
+  fontSize: ".7rem",
+  letterSpacing: ".15em",
+  textTransform: "uppercase",
+  color: "var(--grey)",
+  fontWeight: 500,
+  fontFamily: "var(--font-body)",
+  display: "block",
+  marginBottom: ".4rem",
 };
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({
+    name: "", phone: "", email: "", projectType: "", message: "",
+  });
   const [sent, setSent] = useState(false);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSent(true);
+    setTimeout(() => { setSent(false); setForm({ name: "", phone: "", email: "", projectType: "", message: "" }); }, 4000);
   }
 
   if (sent) {
     return (
-      <div
-        className="text-center py-12 px-6 rounded-lg"
-        style={{ backgroundColor: "#f0f5ee", border: "1px solid #c3d9be" }}
-      >
-        <p className="text-xl font-semibold mb-2" style={{ color: "var(--navy)" }}>
-          Tak for din besked!
+      <div style={{ textAlign: "center", padding: "3rem 2rem" }}>
+        <p style={{ fontFamily: "var(--font-heading)", fontSize: "1.6rem", fontWeight: 300, color: "var(--navy)", marginBottom: ".6rem" }}>
+          Besked sendt ✓
         </p>
-        <p style={{ color: "var(--text-muted)", fontFamily: "Arial, sans-serif" }}>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: ".88rem", color: "var(--grey)", fontWeight: 300 }}>
           Vi vender tilbage til dig hurtigst muligt.
         </p>
       </div>
@@ -45,92 +45,69 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}
+           className="grid-cols-form">
         <div>
-          <label
-            className="block text-sm font-medium mb-1"
-            style={{ color: "var(--navy)", fontFamily: "Arial, sans-serif" }}
-          >
-            Navn *
-          </label>
+          <label style={labelStyle}>Navn</label>
           <input
-            name="name"
-            type="text"
-            required
-            value={form.name}
-            onChange={handleChange}
+            name="name" type="text"
+            value={form.name} onChange={handleChange}
             placeholder="Dit fulde navn"
             className="form-input"
-            style={inputStyle}
           />
         </div>
         <div>
-          <label
-            className="block text-sm font-medium mb-1"
-            style={{ color: "var(--navy)", fontFamily: "Arial, sans-serif" }}
-          >
-            Telefon
-          </label>
+          <label style={labelStyle}>Telefon</label>
           <input
-            name="phone"
-            type="tel"
-            value={form.phone}
-            onChange={handleChange}
+            name="phone" type="tel"
+            value={form.phone} onChange={handleChange}
             placeholder="+45 00 00 00 00"
             className="form-input"
-            style={inputStyle}
           />
         </div>
       </div>
+
       <div>
-        <label
-          className="block text-sm font-medium mb-1"
-          style={{ color: "var(--navy)", fontFamily: "Arial, sans-serif" }}
-        >
-          E-mail *
-        </label>
+        <label style={labelStyle}>E-mail</label>
         <input
-          name="email"
-          type="email"
-          required
-          value={form.email}
-          onChange={handleChange}
+          name="email" type="email" required
+          value={form.email} onChange={handleChange}
           placeholder="din@email.dk"
           className="form-input"
-          style={inputStyle}
         />
       </div>
+
       <div>
-        <label
-          className="block text-sm font-medium mb-1"
-          style={{ color: "var(--navy)", fontFamily: "Arial, sans-serif" }}
-        >
-          Besked *
-        </label>
-        <textarea
-          name="message"
-          required
-          value={form.message}
-          onChange={handleChange}
-          placeholder="Beskriv dit projekt eller din forespørgsel..."
-          rows={5}
+        <label style={labelStyle}>Projekttype</label>
+        <select
+          name="projectType"
+          value={form.projectType} onChange={handleChange}
           className="form-input"
-          style={{ ...inputStyle, resize: "vertical" }}
+        >
+          <option value="" disabled>Vælg projekttype</option>
+          <option>Nybyggeri</option>
+          <option>Renovering</option>
+          <option>Byggerådgivning</option>
+          <option>Projektledelse</option>
+          <option>Tilstandsrapport</option>
+          <option>Andet</option>
+        </select>
+      </div>
+
+      <div>
+        <label style={labelStyle}>Besked</label>
+        <textarea
+          name="message" required
+          value={form.message} onChange={handleChange}
+          placeholder="Beskriv kort dit projekt eller dine spørgsmål..."
+          className="form-input"
+          rows={5}
         />
       </div>
-      <button
-        type="submit"
-        className="self-start px-8 py-3 text-white font-medium text-sm rounded transition-colors"
-        style={{
-          backgroundColor: "var(--gold)",
-          fontFamily: "Arial, sans-serif",
-          letterSpacing: "0.05em",
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--gold-dark)")}
-        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--gold)")}
-      >
-        Send besked
+
+      <button type="submit" className="form-submit" style={{ alignSelf: "flex-start" }}>
+        Send besked →
       </button>
     </form>
   );

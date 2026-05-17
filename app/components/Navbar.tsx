@@ -1,22 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 const links = [
-  { label: "Forside", href: "#hjem" },
-  { label: "Om os", href: "#om-os" },
-  { label: "Ydelser", href: "#ydelser" },
-  { label: "Projekter", href: "#projekter" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Ydelser",  href: "#services" },
+  { label: "Om os",    href: "#about" },
+  { label: "Proces",   href: "#process" },
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen]       = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    // Check initial position — page may load mid-scroll or restore scroll
     setScrolled(window.scrollY > 40);
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -26,36 +22,46 @@ export default function Navbar() {
   return (
     <header
       style={{
-        backgroundColor: scrolled ? "var(--navy-dark)" : "transparent",
-        transition: "background-color 0.3s ease",
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        background: "rgba(247,246,244,0.92)",
+        backdropFilter: "blur(10px)",
+        borderBottom: "1px solid var(--light-grey)",
+        boxShadow: scrolled ? "0 2px 20px rgba(45,55,72,.07)" : "none",
+        transition: "box-shadow .3s",
       }}
-      className="fixed top-0 left-0 right-0 z-50"
     >
-      <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#hjem" className="flex items-center gap-3">
-          <Image
-            src="/logo-white.svg"
-            alt="August Råd & Byg logo"
-            width={48}
-            height={48}
-            className="object-contain"
-          />
-          <span
-            className="text-white font-semibold text-lg tracking-wide hidden sm:block"
-            style={{ fontFamily: "Georgia, serif" }}
-          >
-            August Råd & Byg
-          </span>
+      <nav
+        style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          padding: "1.4rem 5vw",
+        }}
+      >
+        {/* Brand */}
+        <a
+          href="#"
+          style={{
+            fontFamily: "var(--font-heading)",
+            fontSize: "1.25rem", fontWeight: 600, letterSpacing: ".08em",
+            color: "var(--navy)", textDecoration: "none",
+          }}
+        >
+          August <span style={{ color: "var(--gold)" }}>Råd</span> &amp; Byg
         </a>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul style={{ display: "flex", gap: "2.5rem", listStyle: "none", margin: 0, padding: 0 }}
+            className="hidden md:flex">
           {links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-white/80 hover:text-white text-sm tracking-wide transition-colors"
-                style={{ fontFamily: "Arial, sans-serif" }}
+                className="nav-link"
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: ".78rem", letterSpacing: ".12em",
+                  textTransform: "uppercase", color: "var(--navy)",
+                  textDecoration: "none", fontWeight: 500,
+                }}
               >
                 {l.label}
               </a>
@@ -63,50 +69,50 @@ export default function Navbar() {
           ))}
           <li>
             <a
-              href="#kontakt"
-              className="px-5 py-2 text-sm font-medium text-white rounded transition-colors"
+              href="#contact"
+              className="nav-cta"
               style={{
-                backgroundColor: "var(--gold)",
-                fontFamily: "Arial, sans-serif",
+                fontFamily: "var(--font-body)",
+                color: "var(--white)",
+                padding: ".55rem 1.4rem",
+                fontSize: ".78rem", letterSpacing: ".12em",
+                textTransform: "uppercase", fontWeight: 500,
+                textDecoration: "none", display: "inline-block",
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor = "var(--gold-dark)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor = "var(--gold)")
-              }
             >
-              Få et tilbud
+              Kontakt os
             </a>
           </li>
         </ul>
 
         {/* Mobile burger */}
         <button
-          className="md:hidden text-white p-2"
+          className="md:hidden"
           onClick={() => setOpen(!open)}
           aria-label="Åbn menu"
+          style={{ background: "none", border: "none", cursor: "pointer", padding: "8px" }}
         >
-          <span className="block w-6 h-0.5 bg-white mb-1.5" />
-          <span className="block w-6 h-0.5 bg-white mb-1.5" />
-          <span className="block w-6 h-0.5 bg-white" />
+          <span style={{ display: "block", width: 20, height: 1, background: "var(--navy)", marginBottom: 6 }} />
+          <span style={{ display: "block", width: 20, height: 1, background: "var(--navy)", marginBottom: 6 }} />
+          <span style={{ display: "block", width: 20, height: 1, background: "var(--navy)" }} />
         </button>
       </nav>
 
       {/* Mobile menu */}
       {open && (
-        <div
-          className="md:hidden px-6 pb-6"
-          style={{ backgroundColor: "var(--navy-dark)" }}
-        >
-          <ul className="flex flex-col gap-4">
+        <div style={{ background: "var(--off-white)", borderTop: "1px solid var(--light-grey)", padding: "1.5rem 5vw 2rem" }}>
+          <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "1.4rem" }}>
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="text-white/80 hover:text-white text-base block"
                   onClick={() => setOpen(false)}
-                  style={{ fontFamily: "Arial, sans-serif" }}
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: ".78rem", letterSpacing: ".14em",
+                    textTransform: "uppercase", color: "var(--navy)",
+                    textDecoration: "none", fontWeight: 500, display: "block",
+                  }}
                 >
                   {l.label}
                 </a>
@@ -114,12 +120,19 @@ export default function Navbar() {
             ))}
             <li>
               <a
-                href="#kontakt"
-                className="inline-block px-5 py-2 text-sm font-medium text-white rounded mt-2"
-                style={{ backgroundColor: "var(--gold)" }}
+                href="#contact"
                 onClick={() => setOpen(false)}
+                className="nav-cta"
+                style={{
+                  fontFamily: "var(--font-body)",
+                  color: "var(--white)",
+                  padding: ".55rem 1.4rem",
+                  fontSize: ".78rem", letterSpacing: ".12em",
+                  textTransform: "uppercase", fontWeight: 500,
+                  textDecoration: "none", display: "inline-block",
+                }}
               >
-                Få et tilbud
+                Kontakt os
               </a>
             </li>
           </ul>
