@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #3a4d63;
+  --navy-dark: #2c3a4a;
+  --navy-light: #4e6278;
+  --gold: #c9a87e;
+  --gold-dark: #a8855a;
+  --gold-light: #dfc9a3;
+  --bg: #f7f6f4;
+  --bg-white: #ffffff;
+  --text-dark: #2c3a4a;
+  --text-muted: #6b7b8d;
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-navy-dark: var(--navy-dark);
+  --color-navy-light: var(--navy-light);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-gold-light: var(--gold-light);
+  --color-bg: var(--bg);
+  --color-text-dark: var(--text-dark);
+  --color-text-muted: var(--text-muted);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-dark);
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.form-input:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 2px rgba(201, 168, 126, 0.25);
+  outline: none;
+}

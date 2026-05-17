@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 490" fill="none">
+
+  <!-- === BUILDINGS (left) === -->
+  <rect x="64" y="60" width="24" height="196" stroke="white" stroke-width="3.5"/>
+  <rect x="96" y="82" width="32" height="174" stroke="white" stroke-width="3.5"/>
+
+  <!-- === GOLD PARALLELOGRAM === -->
+  <path d="M122 22 L162 22 L146 256 L106 256 Z" stroke="#c9a87e" stroke-width="2.5"/>
+
+  <!-- === A LETTERFORM === -->
+  <line x1="108" y1="256" x2="200" y2="26" stroke="white" stroke-width="9.5" stroke-linecap="butt"/>
+  <line x1="200" y1="26" x2="292" y2="256" stroke="white" stroke-width="9.5" stroke-linecap="butt"/>
+
+  <!-- === HOUSE WINDOW === -->
+  <rect x="185" y="200" width="30" height="30" fill="#c9a87e"/>
+  <line x1="200" y1="200" x2="200" y2="230" stroke="white" stroke-width="2"/>
+  <line x1="185" y1="215" x2="215" y2="215" stroke="white" stroke-width="2"/>
+
+  <!-- === BASELINE === -->
+  <line x1="96" y1="256" x2="400" y2="256" stroke="white" stroke-width="3.5"/>
+
+  <!-- === R LETTERFORM === -->
+  <line x1="308" y1="38" x2="308" y2="256" stroke="white" stroke-width="9.5" stroke-linecap="butt"/>
+  <path d="M308 38 C356 38 372 62 372 96 C372 136 350 158 308 158"
+        stroke="white" stroke-width="9.5" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+  <line x1="308" y1="158" x2="375" y2="256" stroke="white" stroke-width="9.5" stroke-linecap="butt"/>
+
+  <!-- === TEXT === -->
+  <text x="270" y="302"
+        text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="36" font-weight="bold" fill="white" letter-spacing="5">AUGUST RÅD</text>
+
+  <text x="270" y="342"
+        text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="36" font-weight="bold" letter-spacing="5">
+    <tspan fill="#c9a87e">&amp; </tspan><tspan fill="white">BYG</tspan>
+  </text>
+
+  <!-- === DECORATIVE LINES === -->
+  <line x1="82"  y1="360" x2="170" y2="360" stroke="#c9a87e" stroke-width="1.2"/>
+  <line x1="370" y1="360" x2="458" y2="360" stroke="#c9a87e" stroke-width="1.2"/>
+
+  <!-- === TAGLINE === -->
+  <text x="270" y="376"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="12" fill="#c9a87e" letter-spacing="3.8">BYGGE- OG RÅDGIVNING</text>
+
+</svg>
