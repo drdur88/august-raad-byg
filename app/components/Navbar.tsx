@@ -6,10 +6,10 @@ const links = [
   { label: "Ydelser",   href: "#services" },
   { label: "Projekter", href: "#projekter" },
   { label: "Om os",     href: "#about" },
-  { label: "Proces",    href: "#process" },
+  { label: "Beregner",  href: "#tilbudsberegner" },
 ];
 
-const sectionIds = ["services", "projekter", "about", "process", "contact"];
+const sectionIds = ["services", "projekter", "about", "process", "tilbudsberegner", "contact"];
 
 export default function Navbar() {
   const [open, setOpen]         = useState(false);

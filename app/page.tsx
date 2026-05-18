@@ -5,6 +5,7 @@ import FadeUp from "./components/FadeUp";
 import BeforeAfterSlider from "./components/BeforeAfterSlider";
 import CountUp from "./components/CountUp";
 import FloatingCall from "./components/FloatingCall";
+import PriceCalculator from "./components/PriceCalculator";
 
 const services = [
   {
@@ -148,7 +149,7 @@ export default function Home() {
 
           <div style={{ display: "flex", gap: "1.2rem", alignItems: "center", flexWrap: "wrap" }}>
             <a
-              href="#contact"
+              href="#tilbudsberegner"
               className="btn-primary"
               style={{
                 fontFamily: "var(--font-body)",
@@ -158,7 +159,7 @@ export default function Home() {
                 textDecoration: "none",
               }}
             >
-              Få et tilbud
+              Beregn dit tilbud
             </a>
             <a
               href="#services"
@@ -562,6 +563,26 @@ export default function Home() {
             </FadeUp>
           ))}
         </div>
+      </section>
+
+      {/* ── TILBUDSBEREGNER ── */}
+      <section id="tilbudsberegner" style={{ background: "var(--navy)", padding: "7rem 8vw" }}>
+        <p className="section-label section-label-light">Prisestimat</p>
+        <h2 className="section-title section-title-light">
+          Hvad koster dit <em>projekt?</em>
+        </h2>
+        <p
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: ".95rem", lineHeight: 1.75,
+            color: "rgba(255,255,255,.55)", fontWeight: 300,
+            maxWidth: 520,
+          }}
+        >
+          Få et vejledende prisestimat på få minutter. Angiv projekttype, størrelse og
+          din tidsramme — vi kontakter dig med et præcist tilbud.
+        </p>
+        <PriceCalculator />
       </section>
 
       {/* ── CONTACT ── */}
