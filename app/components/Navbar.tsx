@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 
 const links = [
-  { label: "Ydelser",  href: "#services" },
-  { label: "Om os",    href: "#about" },
-  { label: "Proces",   href: "#process" },
+  { label: "Ydelser",   href: "#services" },
+  { label: "Projekter", href: "#projekter" },
+  { label: "Om os",     href: "#about" },
+  { label: "Proces",    href: "#process" },
 ];
 
 export default function Navbar() {

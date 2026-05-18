@@ -163,27 +163,30 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 .grid-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 4rem; }
 .grid-process  { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 4rem; }
 .grid-contact  { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-top: 4rem; align-items: start; }
-.grid-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.grid-form-row    { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.grid-projekter   { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
 
 @media (max-width: 1024px) {
-  .grid-hero   { grid-template-columns: 1fr; min-height: auto; }
-  .grid-about  { grid-template-columns: 1fr; }
-  .grid-contact { grid-template-columns: 1fr; gap: 3rem; }
-  .grid-services { grid-template-columns: repeat(2, 1fr); }
-  .grid-process  { grid-template-columns: repeat(2, 1fr); }
-  .hero-left-pad { padding: 5rem 6vw 3rem !important; }
-  .hero-diagonal { display: none !important; }
-  .hero-stats    { display: none !important; }
-  .hero-right-mh { min-height: 300px; }
-  .about-img-mh  { min-height: 320px; }
+  .grid-hero      { grid-template-columns: 1fr; min-height: auto; }
+  .grid-about     { grid-template-columns: 1fr; }
+  .grid-contact   { grid-template-columns: 1fr; gap: 3rem; }
+  .grid-services  { grid-template-columns: repeat(2, 1fr); }
+  .grid-process   { grid-template-columns: repeat(2, 1fr); }
+  .grid-projekter { grid-template-columns: 1fr; max-width: 560px; }
+  .hero-left-pad  { padding: 5rem 6vw 3rem !important; }
+  .hero-diagonal  { display: none !important; }
+  .hero-stats     { display: none !important; }
+  .hero-right-mh  { min-height: 300px; }
+  .about-img-mh   { min-height: 320px; }
   .about-content-pad { padding: 4rem 6vw !important; }
   section { padding: 5rem 6vw !important; }
 }
 
 @media (max-width: 768px) {
-  .grid-services { grid-template-columns: 1fr; }
-  .grid-process  { grid-template-columns: 1fr 1fr; }
-  .grid-form-row { grid-template-columns: 1fr; }
+  .grid-services  { grid-template-columns: 1fr; }
+  .grid-process   { grid-template-columns: 1fr 1fr; }
+  .grid-form-row  { grid-template-columns: 1fr; }
+  .grid-projekter { grid-template-columns: 1fr; max-width: 100%; }
 }
 
 @media (max-width: 480px) {

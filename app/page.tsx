@@ -2,6 +2,7 @@ import Image from "next/image";
 import Navbar from "./components/Navbar";
 import ContactForm from "./components/ContactForm";
 import FadeUp from "./components/FadeUp";
+import BeforeAfterSlider from "./components/BeforeAfterSlider";
 
 const services = [
   {
@@ -389,6 +390,53 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── PROJEKTER (Before/After) ── */}
+      <section id="projekter" style={{ background: "var(--white)", padding: "7rem 8vw" }}>
+        <p className="section-label">Vores arbejde</p>
+        <h2 className="section-title">
+          Se <em>forvandlingen</em>
+        </h2>
+        <p
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: ".95rem", lineHeight: 1.75,
+            color: "var(--grey)", fontWeight: 300,
+            maxWidth: 520, marginBottom: "3.5rem",
+          }}
+        >
+          Træk i skillelinjen for at se forskellen fra før til efter. Alle billeder er
+          fra virkelige projekter udført af August Råd &amp; Byg.
+        </p>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "3rem",
+          }}
+          className="grid-projekter"
+        >
+          <BeforeAfterSlider
+            before="/renovations/stue-before.jpg"
+            after="/renovations/stue-after.jpg"
+            title="Stuerenovering"
+            description="Total renovering af stue — nyt loft, gulv, vægge og indbyggede spots."
+          />
+          <BeforeAfterSlider
+            before="/renovations/loft-before.jpg"
+            after="/renovations/loft-after.jpg"
+            title="Loftrum"
+            description="Råt loftrum med eksponeret murværk ombygget til lyst og moderne værelse."
+          />
+          <BeforeAfterSlider
+            before="/renovations/sovevaerelse-before.jpg"
+            after="/renovations/sovevaerelse-after.jpg"
+            title="Soveværelse"
+            description="Fra afrensede råvægge til færdigt soveværelse med nyt gulv og malerbehandling."
+          />
         </div>
       </section>
 
