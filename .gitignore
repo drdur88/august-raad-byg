@@ -30,8 +30,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files — keep example, ignore real secrets
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -40,4 +41,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
+# Raw / original source files — kept locally but not in git
+originals/
+
+# Claude Code
+.claude/

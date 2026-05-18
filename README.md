@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# August Råd & Byg — Hjemmeside
 
-## Getting Started
+Professionel hjemmeside for August Råd & Byg, bygget med Next.js 16, Tailwind CSS v4 og TypeScript.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Mappestruktur
+
+```
+august-raad-byg/
+├── app/
+│   ├── actions/
+│   │   └── contact.ts          # Server Action — sender email via Resend
+│   ├── components/
+│   │   ├── BeforeAfterSlider.tsx   # Før/efter billede-slider
+│   │   ├── ContactForm.tsx         # Kontaktformular med validering
+│   │   ├── CountUp.tsx             # Animerede tæller-tal
+│   │   ├── FadeUp.tsx              # Fade-in animation ved scroll
+│   │   ├── FloatingCall.tsx        # Flydende opkaldsknap (mobil)
+│   │   └── Navbar.tsx              # Navigation med scroll-spy
+│   ├── globals.css             # CSS-variabler, responsive grids
+│   ├── layout.tsx              # Root layout, fonte, meta-tags
+│   └── page.tsx                # Hele forsiden (alle sektioner)
+│
+├── public/
+│   ├── logo.svg                # Logo til lys baggrund
+│   ├── logo-white.svg          # Logo til mørk baggrund
+│   ├── logo-real.png           # Originalt logo (PNG)
+│   └── renovations/            # Optimerede før/efter billeder
+│
+├── originals/                  # Råfiler fra kamera/WhatsApp (IKKE i git)
+│
+├── .env.example                # Miljøvariabler — kopiér til .env.local
+├── netlify.toml                # Netlify deployment-config
+├── next.config.ts              # Next.js konfiguration
+├── package.json
+└── tsconfig.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Kom i gang lokalt
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# 1. Installér afhængigheder
+npm install
 
-## Learn More
+# 2. Kopiér miljøvariabler
+cp .env.example .env.local
+# Åbn .env.local og udfyld RESEND_API_KEY
 
-To learn more about Next.js, take a look at the following resources:
+# 3. Start udviklings-server
+npm run dev
+# Åbn http://localhost:3000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Miljøvariabler
 
-## Deploy on Vercel
+Kopiér `.env.example` til `.env.local` og udfyld:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Variabel | Beskrivelse | Påkrævet |
+|----------|-------------|----------|
+| `RESEND_API_KEY` | API-nøgle fra [resend.com](https://resend.com) — gratis op til 3.000 emails/md | For email |
+| `CONTACT_EMAIL` | Hvilken email kontaktbeskeder sendes til | Nej (bruger default) |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Deploy
+
+### ▲ Vercel (nuværende setup — anbefalet)
+Hvert push til `main` deployer automatisk via GitHub-integration.
+```bash
+git push origin main
+```
+Tilføj miljøvariabler under: Vercel → Project → Settings → Environment Variables
+
+---
+
+### Netlify
+1. Opret projekt på [app.netlify.com](https://app.netlify.com) → "Import from Git"
+2. Vælg GitHub-repo
+3. Build command: `npm run build` | Publish: `.next`
+4. Tilføj miljøvariabler under Site Settings → Environment Variables
+5. `netlify.toml` er allerede klar i projektet
+
+---
+
+### Railway
+1. Gå til [railway.app](https://railway.app) → New Project → Deploy from GitHub
+2. Vælg repo — Railway registrerer Next.js automatisk
+3. Tilføj miljøvariabler under Variables-fanen
+
+---
+
+### Fly.io
+```bash
+fly launch
+fly secrets set RESEND_API_KEY=re_xxxx CONTACT_EMAIL=info@augustraadogbyg.dk
+fly deploy
+```
+
+---
+
+### Statisk hosting (GitHub Pages, Apache, nginx)
+Aktivér statisk eksport i `next.config.ts` ved at fjerne kommentar-tegnet:
+```ts
+output: "export",   // ← fjern //
+```
+**Bemærk:** Med static export virker kontaktformularen ikke (Server Actions kræver Node.js).
+Kør `npm run build` — output havner i `out/`-mappen.
+
+---
+
+## Opdatering af indhold
+
+| Hvad skal ændres | Fil | Søg efter |
+|------------------|-----|-----------|
+| Telefon / email / adresse | `app/page.tsx` | `+45 12 34 56 78` |
+| Kundeanmeldelser | `app/page.tsx` | `quote:` i testimonials-arrayet |
+| Ydelser (6 kort) | `app/page.tsx` | `const services` øverst |
+| Processkridt | `app/page.tsx` | `const processSteps` |
+| Før/efter billeder | `public/renovations/` | Udskift filer, opdatér paths i `page.tsx` |
+| Farver | `app/globals.css` | `:root { --navy, --gold ... }` |
+| Fonte | `app/layout.tsx` | `Cormorant_Garamond`, `Jost` |
