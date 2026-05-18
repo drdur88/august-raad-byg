@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar";
 import ContactForm from "./components/ContactForm";
 import FadeUp from "./components/FadeUp";
 import BeforeAfterSlider from "./components/BeforeAfterSlider";
+import CountUp from "./components/CountUp";
+import FloatingCall from "./components/FloatingCall";
 
 const services = [
   {
@@ -92,6 +94,7 @@ export default function Home() {
   return (
     <div>
       <Navbar />
+      <FloatingCall />
 
       {/* ── HERO ── */}
       <section id="hero" className="grid-hero">
@@ -213,32 +216,20 @@ export default function Home() {
             }}
           >
             {[
-              { num: "15+", label: "Års erfaring" },
+              { target: 15, suffix: "+", label: "Års erfaring" },
               null,
-              { num: "200+", label: "Projekter" },
+              { target: 200, suffix: "+", label: "Projekter" },
               null,
-              { num: "100%", label: "Tilfredse kunder" },
+              { target: 100, suffix: "%", label: "Tilfredse kunder" },
             ].map((s, i) =>
               s === null ? (
                 <div key={i} style={{ width: 1, background: "rgba(255,255,255,.2)", alignSelf: "stretch" }} />
               ) : (
                 <div key={s.label} style={{ color: "var(--white)" }}>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-heading)",
-                      fontSize: "2.8rem", fontWeight: 300, lineHeight: 1, display: "block",
-                    }}
-                  >
-                    {s.num}
+                  <span style={{ fontFamily: "var(--font-heading)", fontSize: "2.8rem", fontWeight: 300, lineHeight: 1, display: "block" }}>
+                    <CountUp target={s.target} suffix={s.suffix} />
                   </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: ".7rem", letterSpacing: ".15em",
-                      textTransform: "uppercase", opacity: .65,
-                      marginTop: ".3rem", display: "block",
-                    }}
-                  >
+                  <span style={{ fontFamily: "var(--font-body)", fontSize: ".7rem", letterSpacing: ".15em", textTransform: "uppercase", opacity: .65, marginTop: ".3rem", display: "block" }}>
                     {s.label}
                   </span>
                 </div>
@@ -503,6 +494,73 @@ export default function Home() {
               </FadeUp>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section id="anmeldelser" style={{ background: "var(--off-white)", padding: "7rem 8vw" }}>
+        <p className="section-label">Hvad kunderne siger</p>
+        <h2 className="section-title">
+          Bygget på <em>tillid</em>
+        </h2>
+
+        <div
+          style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "2rem", marginTop: "3.5rem" }}
+          className="grid-testimonials"
+        >
+          {[
+            {
+              quote: "August Råd & Byg stod for en total renovering af vores hus. Professionelt fra start til slut — de holdt tidsplan, budget og kommunikerede løbende. Vi kunne ikke have ønsket os bedre.",
+              name: "Mikkel H.",
+              project: "Total renovering, Aarhus",
+            },
+            {
+              quote: "Ærlig rådgivning, fast pris og ingen overraskelser. Præcis hvad vi havde brug for. Vi følte os trygge hele vejen igennem projektet.",
+              name: "Lone & Per K.",
+              project: "Tilbygning, Odense",
+            },
+            {
+              quote: "Vi er utrolig glade for resultatet. De koordinerede alle håndværkere og vi behøvede kun at forholde os til ét kontaktpunkt. Stærkt anbefalet.",
+              name: "Thomas B.",
+              project: "Projektledelse, København",
+            },
+          ].map((t, i) => (
+            <FadeUp key={i} delay={i * 0.1}>
+              <div
+                style={{
+                  background: "var(--white)",
+                  padding: "2.5rem",
+                  borderTop: "3px solid var(--gold)",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                {/* Stars */}
+                <div style={{ display: "flex", gap: 4, marginBottom: "1.2rem" }}>
+                  {[...Array(5)].map((_, j) => (
+                    <svg key={j} width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                  ))}
+                </div>
+
+                <p style={{ fontFamily: "var(--font-heading)", fontSize: "1.1rem", fontWeight: 300, fontStyle: "italic", lineHeight: 1.6, color: "var(--navy)", flex: 1, marginBottom: "1.5rem" }}>
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+
+                <div>
+                  <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: ".88rem", color: "var(--navy)" }}>
+                    {t.name}
+                  </p>
+                  <p style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontSize: ".78rem", color: "var(--grey)", letterSpacing: ".05em" }}>
+                    {t.project}
+                  </p>
+                </div>
+              </div>
+            </FadeUp>
+          ))}
         </div>
       </section>
 

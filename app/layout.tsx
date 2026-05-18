@@ -17,10 +17,31 @@ const jost = Jost({
   display: "swap",
 });
 
+const siteUrl = "https://august-raad-byg.vercel.app";
+
 export const metadata: Metadata = {
   title: "August Råd & Byg – Bygge- og Rådgivning",
   description:
-    "Professionel byggerådgivning, projektledelse, tilsyn og renoveringsrådgivning. Kontakt August Råd & Byg i dag.",
+    "Professionel byggerådgivning, renovering, projektledelse og kvalitetssikring. Over 15 års erfaring. Kontakt August Råd & Byg i dag for et gratis og uforpligtende tilbud.",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    title: "August Råd & Byg – Bygge- og Rådgivning",
+    description:
+      "Professionel byggerådgivning, renovering, projektledelse og kvalitetssikring. Over 15 års erfaring i Danmark.",
+    url: siteUrl,
+    siteName: "August Råd & Byg",
+    locale: "da_DK",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "August Råd & Byg",
+    description: "Professionel byggerådgivning og renovering. Over 15 års erfaring.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
