@@ -1,17 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-const links = [
-  { label: "Ydelser",   href: "#services" },
-  { label: "Projekter", href: "#projekter" },
-  { label: "Om os",     href: "#about" },
-  { label: "Beregner",  href: "#tilbudsberegner" },
+const navLinks: { label: string; anchor: string }[] = [
+  { label: "Ydelser",   anchor: "services" },
+  { label: "Projekter", anchor: "projekter" },
+  { label: "Beregner",  anchor: "tilbudsberegner" },
 ];
 
-const sectionIds = ["services", "projekter", "about", "process", "tilbudsberegner", "contact"];
+const sectionIds = ["services", "projekter", "galleri", "raad", "about", "process", "guide", "tilbudsberegner", "contact"];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const [open, setOpen]         = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive]     = useState("");
@@ -41,6 +45,15 @@ export default function Navbar() {
     };
   }, []);
 
+  const anchorHref = (anchor: string) => (isHome ? `#${anchor}` : `/#${anchor}`);
+
+  const items = [
+    { label: navLinks[0].label, href: anchorHref(navLinks[0].anchor), isActive: isHome && active === navLinks[0].anchor },
+    { label: navLinks[1].label, href: anchorHref(navLinks[1].anchor), isActive: isHome && active === navLinks[1].anchor },
+    { label: "Om os", href: "/om-os", isActive: pathname === "/om-os" },
+    { label: navLinks[2].label, href: anchorHref(navLinks[2].anchor), isActive: isHome && active === navLinks[2].anchor },
+  ];
+
   return (
     <>
       <header
@@ -56,43 +69,39 @@ export default function Navbar() {
         <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.4rem 5vw" }}>
 
           {/* Brand */}
-          <a href="#"
+          <Link href="/"
             style={{
               fontFamily: "var(--font-heading)", fontSize: "1.25rem",
               fontWeight: 600, letterSpacing: ".08em",
               color: "var(--navy)", textDecoration: "none",
             }}
           >
-            August <span style={{ color: "var(--gold)" }}>Råd</span> &amp; Byg
-          </a>
+            August <span style={{ color: "var(--gold)" }}>Råd</span>{" "}&amp; Byg
+          </Link>
 
           {/* Desktop links */}
           <ul style={{ gap: "2.5rem", listStyle: "none", margin: 0, padding: 0 }}
               className="hidden md:flex items-center">
-            {links.map((l) => {
-              const id = l.href.replace("#", "");
-              const isActive = active === id;
-              return (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="nav-link"
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: ".78rem", letterSpacing: ".12em",
-                      textTransform: "uppercase",
-                      color: isActive ? "var(--gold)" : "var(--navy)",
-                      textDecoration: "none", fontWeight: 500,
-                      transition: "color .2s",
-                    }}
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              );
-            })}
+            {items.map((l) => (
+              <li key={l.label}>
+                <Link
+                  href={l.href}
+                  className="nav-link"
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: ".78rem", letterSpacing: ".12em",
+                    textTransform: "uppercase",
+                    color: l.isActive ? "var(--gold)" : "var(--navy)",
+                    textDecoration: "none", fontWeight: 500,
+                    transition: "color .2s",
+                  }}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
             <li>
-              <a href="#contact" className="nav-cta"
+              <Link href={anchorHref("contact")} className="nav-cta"
                 style={{
                   fontFamily: "var(--font-body)", color: "var(--white)",
                   padding: ".55rem 1.4rem", fontSize: ".78rem",
@@ -101,7 +110,7 @@ export default function Navbar() {
                 }}
               >
                 Kontakt os
-              </a>
+              </Link>
             </li>
           </ul>
 
@@ -118,22 +127,22 @@ export default function Navbar() {
         {open && (
           <div style={{ background: "var(--off-white)", borderTop: "1px solid var(--light-grey)", padding: "1.5rem 5vw 2rem" }}>
             <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "1.4rem" }}>
-              {links.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} onClick={() => setOpen(false)}
+              {items.map((l) => (
+                <li key={l.label}>
+                  <Link href={l.href} onClick={() => setOpen(false)}
                     style={{
                       fontFamily: "var(--font-body)", fontSize: ".78rem",
                       letterSpacing: ".14em", textTransform: "uppercase",
-                      color: active === l.href.replace("#", "") ? "var(--gold)" : "var(--navy)",
+                      color: l.isActive ? "var(--gold)" : "var(--navy)",
                       textDecoration: "none", fontWeight: 500, display: "block",
                     }}
                   >
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li>
-                <a href="#contact" onClick={() => setOpen(false)} className="nav-cta"
+                <Link href={anchorHref("contact")} onClick={() => setOpen(false)} className="nav-cta"
                   style={{
                     fontFamily: "var(--font-body)", color: "var(--white)",
                     padding: ".55rem 1.4rem", fontSize: ".78rem",
@@ -142,7 +151,7 @@ export default function Navbar() {
                   }}
                 >
                   Kontakt os
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

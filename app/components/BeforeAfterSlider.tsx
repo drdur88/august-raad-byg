@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
   afterAlt?: string;
   title: string;
   description?: string;
+  autoPlay?: boolean;
 }
 
 export default function BeforeAfterSlider({
@@ -19,9 +20,16 @@ export default function BeforeAfterSlider({
   afterAlt = "Efter",
   title,
   description,
+  autoPlay = false,
 }: Props) {
   const [position, setPosition] = useState(50);
   const [dragging, setDragging] = useState(false);
+  const [autoActive, setAutoActive] = useState(
+    () =>
+      autoPlay &&
+      typeof window !== "undefined" &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
   const containerRef = useRef<HTMLDivElement>(null);
 
   const updatePosition = useCallback((clientX: number) => {
@@ -32,8 +40,42 @@ export default function BeforeAfterSlider({
     setPosition((x / rect.width) * 100);
   }, []);
 
+  // Auto-sweep the reveal back and forth while in view, until the visitor
+  // takes over by dragging — reduced-motion users never get the auto-sweep.
+  useEffect(() => {
+    if (!autoPlay) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setAutoActive(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [autoPlay]);
+
+  useEffect(() => {
+    if (!autoActive || dragging) return;
+    let raf: number;
+    const start = performance.now();
+    const cyclePeriodMs = 7000;
+    const tick = (now: number) => {
+      const t = ((now - start) % cyclePeriodMs) / cyclePeriodMs;
+      // Ping-pong between 22% and 78% using a smooth sine wave
+      const wave = (Math.sin(t * Math.PI * 2 - Math.PI / 2) + 1) / 2;
+      setPosition(22 + wave * 56);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [autoActive, dragging]);
+
   const onMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
+    setAutoActive(false);
     setDragging(true);
     updatePosition(e.clientX);
   };
@@ -49,6 +91,7 @@ export default function BeforeAfterSlider({
   const onMouseUp = () => setDragging(false);
 
   const onTouchStart = (e: React.TouchEvent) => {
+    setAutoActive(false);
     setDragging(true);
     updatePosition(e.touches[0].clientX);
   };
