@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { sendLeadEmail } from "../actions/sendLead";
 
 /* ── Types ───────────────────────────────────────────────── */
-type ProjectType = "nybyggeri" | "renovering" | "tilbygning" | "raadgivning";
+type ProjectType = "nybyggeri" | "renovering" | "tilbygning" | "raadgivning" | "maler" | "tommer" | "vvs_el";
 type Timing      = "snarest" | "3-6" | "6-12" | "overslag";
 
 /* ── Static data ─────────────────────────────────────────── */
@@ -57,6 +57,40 @@ const projectTypes: { key: ProjectType; label: string; desc: string; icon: React
       </svg>
     ),
   },
+  {
+    key:   "maler",
+    label: "Malerarbejde",
+    desc:  "Maling af vægge, lofter og facader",
+    icon: (
+      <svg viewBox="0 0 24 24" width={32} height={32} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="4" width="11" height="6" rx="1"/>
+        <line x1="7.5" y1="10" x2="7.5" y2="14"/>
+        <rect x="5" y="14" width="5" height="7" rx="1"/>
+      </svg>
+    ),
+  },
+  {
+    key:   "tommer",
+    label: "Tømrerarbejde",
+    desc:  "Døre, vinduer, trapper og træarbejde",
+    icon: (
+      <svg viewBox="0 0 24 24" width={32} height={32} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 20l7-7"/>
+        <path d="M9 13l6.5-6.5a2.12 2.12 0 013 3L12 16"/>
+        <path d="M15 6l3-3 4 4-3 3"/>
+      </svg>
+    ),
+  },
+  {
+    key:   "vvs_el",
+    label: "VVS & el",
+    desc:  "Vand, varme og el-installation",
+    icon: (
+      <svg viewBox="0 0 24 24" width={32} height={32} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2s7 8.5 7 13a7 7 0 11-14 0c0-4.5 7-13 7-13z"/>
+      </svg>
+    ),
+  },
 ];
 
 const timingOptions: { key: Timing; label: string }[] = [
@@ -73,6 +107,9 @@ const pricePerM2: Record<ProjectType, [number, number]> = {
   renovering:  [7_000,  16_000],
   tilbygning:  [11_000, 21_000],
   raadgivning: [400,    1_200],
+  maler:       [200,    450],
+  tommer:      [2_000,  6_000],
+  vvs_el:      [800,    2_500],
 };
 
 // Minimum totals (DKK) so small projects look realistic
@@ -81,6 +118,9 @@ const minTotal: Record<ProjectType, [number, number]> = {
   renovering:  [60_000,  120_000],
   tilbygning:  [300_000, 500_000],
   raadgivning: [15_000,  40_000],
+  maler:       [8_000,   20_000],
+  tommer:      [25_000,  80_000],
+  vvs_el:      [15_000,  50_000],
 };
 
 function getRegionalMultiplier(postal: string): number {
@@ -132,6 +172,7 @@ export default function PriceCalculator() {
   const [phone,       setPhone]       = useState("");
   const [email,       setEmail]       = useState("");
   const [postalCode,  setPostalCode]  = useState("");
+  const [referralSource, setReferralSource] = useState("");
   const [status,      setStatus]      = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errorMsg,    setErrorMsg]    = useState("");
 
@@ -182,6 +223,7 @@ export default function PriceCalculator() {
       email,
       estimateLow:  fmtDKK(estimate.low),
       estimateHigh: fmtDKK(estimate.high),
+      referralSource,
     });
 
     if (result.success) {
@@ -404,6 +446,22 @@ export default function PriceCalculator() {
                 onChange={(e) => setPostalCode(e.target.value.replace(/\D/g, ""))}
                 className="form-input"
               />
+            </div>
+            <div className="calc-field">
+              <label className="calc-label" htmlFor="calc-referral">Hvordan hørte du om os?</label>
+              <select
+                id="calc-referral"
+                value={referralSource}
+                onChange={(e) => setReferralSource(e.target.value)}
+                className="form-input"
+              >
+                <option value="">Vælg (valgfrit)</option>
+                <option>Google-søgning</option>
+                <option>Anbefaling fra bekendt</option>
+                <option>Facebook / Instagram</option>
+                <option>Tidligere kunde</option>
+                <option>Andet</option>
+              </select>
             </div>
           </div>
 

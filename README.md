@@ -64,6 +64,27 @@ Kopiér `.env.example` til `.env.local` og udfyld:
 |----------|-------------|----------|
 | `RESEND_API_KEY` | API-nøgle fra [resend.com](https://resend.com) — gratis op til 3.000 emails/md | For email |
 | `CONTACT_EMAIL` | Hvilken email kontaktbeskeder sendes til | Nej (bruger default) |
+| `SUPABASE_URL` | Projekt-URL fra [supabase.com](https://supabase.com) | Nej — uden den gemmes leads ikke i en database |
+| `SUPABASE_SERVICE_ROLE_KEY` | Service role-nøgle (Project Settings → API) | Nej, se ovenfor |
+
+### Lead-database (Supabase)
+
+Alle formularer (kontaktformular, tilbudsberegner, nyhedsbrev) gemmer et lead i en
+Supabase-database ud over at sende email — så du kan se/eksportere alle
+henvendelser i ét overblik, selv dem der aldrig blev til en sag.
+
+1. Opret gratis projekt på [supabase.com](https://supabase.com)
+2. Åbn **SQL Editor** i dit projekt og kør indholdet af [`supabase/schema.sql`](supabase/schema.sql)
+3. Under **Project Settings → API**, kopiér `Project URL` og `service_role` nøglen
+4. Sæt dem som `SUPABASE_URL` og `SUPABASE_SERVICE_ROLE_KEY` i `.env.local` (og i dit hostingmiljø)
+5. Se alle indkomne leads under **Table Editor → leads** i Supabase-dashboardet
+
+Uden disse variabler virker alle formularer stadig præcis som før (kun email) — databasen er et supplement, ikke en forudsætning.
+
+### Hero-video
+
+Læg en `.mp4`-fil i `public/videos/hero.mp4`, så afspiller forsiden den automatisk
+i stedet for det statiske foto — ingen kodeændringer nødvendige.
 
 ---
 
@@ -119,8 +140,11 @@ Kør `npm run build` — output havner i `out/`-mappen.
 |------------------|-----|-----------|
 | Telefon / email / adresse | `app/page.tsx` | `+45 12 34 56 78` |
 | Kundeanmeldelser | `app/page.tsx` | `quote:` i testimonials-arrayet |
-| Ydelser (6 kort) | `app/page.tsx` | `const services` øverst |
+| Ydelser (9 kort) | `app/page.tsx` | `const services` øverst |
 | Processkridt | `app/page.tsx` | `const processSteps` |
 | Før/efter billeder | `public/renovations/` | Udskift filer, opdatér paths i `page.tsx` |
+| Galleri-billeder | `app/components/Gallery.tsx` | `galleryImages`-arrayet |
+| Prisberegner-satser | `app/components/PriceCalculator.tsx` | `pricePerM2`, `minTotal` |
 | Farver | `app/globals.css` | `:root { --navy, --gold ... }` |
 | Fonte | `app/layout.tsx` | `Cormorant_Garamond`, `Jost` |
+| Lead-magnet PDF | `public/downloads/byggeguide.pdf` | Genskab med `python scripts/generate_byggeguide.py` |

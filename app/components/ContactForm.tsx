@@ -17,6 +17,7 @@ const labelStyle: React.CSSProperties = {
 export default function ContactForm() {
   const [form, setForm] = useState({
     name: "", phone: "", email: "", projectType: "", message: "",
+    budgetRange: "", referralSource: "", preferredContactTime: "",
   });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -95,6 +96,44 @@ export default function ContactForm() {
           <option>Byggerådgivning</option>
           <option>Projektledelse</option>
           <option>Tilstandsrapport</option>
+          <option>Malerarbejde</option>
+          <option>Tømrerarbejde</option>
+          <option>VVS &amp; el-installation</option>
+          <option>Andet</option>
+        </select>
+      </div>
+
+      <div className="grid-form-row">
+        <div>
+          <label style={labelStyle}>Budget</label>
+          <select name="budgetRange" value={form.budgetRange} onChange={handleChange} className="form-input">
+            <option value="">Vælg budget (valgfrit)</option>
+            <option>Under 50.000 kr</option>
+            <option>50.000–200.000 kr</option>
+            <option>200.000–500.000 kr</option>
+            <option>Over 500.000 kr</option>
+            <option>Ved ikke endnu</option>
+          </select>
+        </div>
+        <div>
+          <label style={labelStyle}>Hvornår passer det bedst?</label>
+          <select name="preferredContactTime" value={form.preferredContactTime} onChange={handleChange} className="form-input">
+            <option value="">Vælg tidspunkt (valgfrit)</option>
+            <option>Formiddag</option>
+            <option>Eftermiddag</option>
+            <option>Aften</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label style={labelStyle}>Hvordan hørte du om os?</label>
+        <select name="referralSource" value={form.referralSource} onChange={handleChange} className="form-input">
+          <option value="">Vælg (valgfrit)</option>
+          <option>Google-søgning</option>
+          <option>Anbefaling fra bekendt</option>
+          <option>Facebook / Instagram</option>
+          <option>Tidligere kunde</option>
           <option>Andet</option>
         </select>
       </div>

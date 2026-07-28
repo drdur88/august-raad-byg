@@ -1,6 +1,7 @@
 "use server";
 
 import { Resend } from "resend";
+import { insertLead } from "../lib/supabase";
 
 export interface LeadData {
   projectType: string;
@@ -12,6 +13,7 @@ export interface LeadData {
   email: string;
   estimateLow: string;
   estimateHigh: string;
+  referralSource?: string;
 }
 
 const projectTypeLabels: Record<string, string> = {
@@ -19,6 +21,9 @@ const projectTypeLabels: Record<string, string> = {
   renovering:  "Renovering",
   tilbygning:  "Tilbygning",
   raadgivning: "Byggerådgivning",
+  maler:       "Malerarbejde",
+  tommer:      "Tømrerarbejde",
+  vvs_el:      "VVS & el-installation",
 };
 
 const timingLabels: Record<string, string> = {
@@ -32,6 +37,20 @@ export async function sendLeadEmail(
   data: LeadData
 ): Promise<{ success: boolean; error?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
+
+  await insertLead({
+    source: "price_calculator",
+    name: data.name,
+    phone: data.phone,
+    email: data.email,
+    project_type: projectTypeLabels[data.projectType] ?? data.projectType,
+    size_m2: data.size,
+    postal_code: data.postalCode,
+    timing: timingLabels[data.timing] ?? data.timing,
+    estimate_low: data.estimateLow,
+    estimate_high: data.estimateHigh,
+    referral_source: data.referralSource,
+  });
 
   if (!apiKey) {
     console.log("[Tilbudsberegner lead]", data);
@@ -57,6 +76,7 @@ export async function sendLeadEmail(
         `Størrelse:     ${data.size} m²`,
         `Postnummer:    ${data.postalCode}`,
         `Tidsramme:     ${timingLabels[data.timing] ?? data.timing}`,
+        `Hørt om os via: ${data.referralSource || "–"}`,
         "",
         `Estimeret interval: ${data.estimateLow} – ${data.estimateHigh}`,
       ].join("\n"),
