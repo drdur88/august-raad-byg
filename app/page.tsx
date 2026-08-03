@@ -7,6 +7,7 @@ import FadeUp from "./components/FadeUp";
 import HeroMedia from "./components/HeroMedia";
 import FAQ from "./components/FAQ";
 import PackageCTA from "./components/PackageCTA";
+import BeforeAfterSlider from "./components/BeforeAfterSlider";
 
 // Drop an .mp4 into public/videos/hero.mp4 and the hero automatically
 // plays it instead of the static photo — no code changes needed.
@@ -104,9 +105,27 @@ const valueItems = [
 ];
 
 const workItems = [
-  { img: "/renovations/stue-after.jpg", tag: "Stue", title: "Stuerenovering", desc: "Total renovering planlagt og fulgt til dørs — nyt loft, gulv og indbyggede spots." },
-  { img: "/renovations/loft-after.jpg", tag: "Loftrum", title: "Loftrum", desc: "Råt loftrum koordineret og omdannet til lyst, moderne værelse." },
-  { img: "/renovations/sovevaerelse-after.jpg", tag: "Soveværelse", title: "Soveværelse", desc: "Nyt gulv, malerbehandling og indretning — styret fra A til Z." },
+  {
+    before: "/renovations/stue-before.jpg",
+    after: "/renovations/stue-after.jpg",
+    tag: "Stue",
+    title: "Stuerenovering",
+    desc: "Total renovering planlagt og fulgt til dørs — nyt loft, gulv og indbyggede spots.",
+  },
+  {
+    before: "/renovations/loft-before.jpg",
+    after: "/renovations/loft-after.jpg",
+    tag: "Loftrum",
+    title: "Loftrum",
+    desc: "Råt loftrum koordineret og omdannet til lyst, moderne værelse.",
+  },
+  {
+    before: "/renovations/sovevaerelse-before.jpg",
+    after: "/renovations/sovevaerelse-after.jpg",
+    tag: "Soveværelse",
+    title: "Soveværelse",
+    desc: "Nyt gulv, malerbehandling og indretning — styret fra A til Z.",
+  },
 ];
 
 const contactItems = [
@@ -310,10 +329,14 @@ export default async function Home() {
         <div className="grid-work">
           {workItems.map((w) => (
             <div key={w.title}>
-              <div className="work-thumb">
-                <Image src={w.img} alt={w.title} fill sizes="33vw" className="object-cover" />
-                <span className="work-thumb-tag">{w.tag}</span>
-              </div>
+              <BeforeAfterSlider
+                before={w.before}
+                after={w.after}
+                beforeAlt={`${w.title} før renovering`}
+                afterAlt={`${w.title} efter renovering`}
+                title={w.title}
+                tag={w.tag}
+              />
               <p className="card-title mt-5 mb-[.4rem]" style={{ fontSize: "1.15rem" }}>{w.title}</p>
               <p className="copy-sm">{w.desc}</p>
             </div>
