@@ -95,8 +95,6 @@ export default function ContactForm() {
           <option>Renovering</option>
           <option>Byggerådgivning</option>
           <option>Projektledelse</option>
-          <option>Tilstandsrapport</option>
-          <option>Malerarbejde</option>
           <option>Tømrerarbejde</option>
           <option>VVS &amp; el-installation</option>
           <option>Andet</option>

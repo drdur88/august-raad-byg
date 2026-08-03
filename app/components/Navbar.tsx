@@ -5,24 +5,23 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 const navLinks: { label: string; anchor: string }[] = [
-  { label: "Ydelser",   anchor: "services" },
-  { label: "Projekter", anchor: "projekter" },
-  { label: "Beregner",  anchor: "tilbudsberegner" },
+  { label: "Ydelser", anchor: "services" },
+  { label: "Arbejde", anchor: "arbejde" },
+  { label: "Proces",  anchor: "process" },
 ];
 
-const sectionIds = ["services", "projekter", "galleri", "raad", "about", "process", "guide", "tilbudsberegner", "contact"];
+const sectionIds = ["services", "about", "arbejde", "process", "anmeldelser", "contact"];
 
 export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   const [open, setOpen]         = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > 40);
   const [active, setActive]     = useState("");
 
   useEffect(() => {
     // Scroll shadow
-    setScrolled(window.scrollY > 40);
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
 

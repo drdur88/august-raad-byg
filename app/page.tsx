@@ -4,12 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactForm from "./components/ContactForm";
 import FadeUp from "./components/FadeUp";
-import BeforeAfterSlider from "./components/BeforeAfterSlider";
-import Gallery from "./components/Gallery";
 import CountUp from "./components/CountUp";
-import PriceCalculator from "./components/PriceCalculator";
 import HeroMedia from "./components/HeroMedia";
-import EmailCaptureForm from "./components/EmailCaptureForm";
 
 // Drop an .mp4 into public/videos/hero.mp4 and the hero automatically
 // plays it instead of the static photo — no code changes needed.
@@ -63,38 +59,6 @@ const services = [
   },
   {
     num: "05",
-    name: "Tilstandsrapporter",
-    desc: "Grundig gennemgang og vurdering af bygningers stand. Uvildig rapport der giver dig det fulde overblik inden køb, salg eller renovering.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={36} height={36} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 20h20M6 20V10M10 20V4M14 20v-6M18 20v-9"/>
-      </svg>
-    ),
-  },
-  {
-    num: "06",
-    name: "Kvalitetssikring",
-    desc: "Løbende kontrol og dokumentation af byggekvalitet. Vi sikrer, at dit projekt lever op til gældende normer og dine forventninger.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={36} height={36} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-      </svg>
-    ),
-  },
-  {
-    num: "07",
-    name: "Malerarbejde",
-    desc: "Professionel malerbehandling af vægge, lofter og facader – indendørs såvel som udendørs. Fra enkelte rum til hele bygninger.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={36} height={36} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="11" height="6" rx="1"/>
-        <line x1="7.5" y1="10" x2="7.5" y2="14"/>
-        <rect x="5" y="14" width="5" height="7" rx="1"/>
-      </svg>
-    ),
-  },
-  {
-    num: "08",
     name: "Tømrerarbejde",
     desc: "Alt i tømrer- og snedkerarbejde – døre, vinduer, trapper, terrasser og indbyggede løsninger udført i massivt træ.",
     icon: (
@@ -106,7 +70,7 @@ const services = [
     ),
   },
   {
-    num: "09",
+    num: "06",
     name: "VVS & el-installation",
     desc: "Fagkyndig installation, service og reparation af vand, varme og el – udført af certificerede fagfolk med fokus på sikkerhed.",
     icon: (
@@ -124,81 +88,10 @@ const processSteps = [
   { num: "4", title: "Aflevering", desc: "Grundig gennemgang og overdragelse. Vi sikrer, at alt lever op til dine forventninger." },
 ];
 
-const adviceItems = [
-  {
-    tag: "Gør-det-selv",
-    title: "Før du selv går i gang",
-    desc: "Mindre opgaver som maling, fugning og enkle reparationer kan du sagtens løfte selv. Så snart det involverer bærende konstruktioner, el eller vand, bør du altid bruge en fagmand.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={28} height={28} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
-      </svg>
-    ),
-  },
-  {
-    tag: "Gør-det-selv",
-    title: "De rigtige værktøjer gør forskellen",
-    desc: "Invester i kvalitetsværktøj til de opgaver, du selv udfører — det sparer tid, giver et bedre resultat og er ofte billigere i det lange løb end at leje eller købe billigt.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={28} height={28} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="7" width="20" height="14" rx="2"/>
-        <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
-        <line x1="2" y1="13" x2="22" y2="13"/>
-      </svg>
-    ),
-  },
-  {
-    tag: "Inspiration",
-    title: "Lad lyset komme ind",
-    desc: "Større vinduer, lysere farvevalg og gennemtænkt belysning kan forvandle selv de mørkeste rum og få boligen til at føles markant større.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={28} height={28} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="5"/>
-        <line x1="12" y1="1" x2="12" y2="3"/>
-        <line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/>
-        <line x1="21" y1="12" x2="23" y2="12"/>
-      </svg>
-    ),
-  },
-  {
-    tag: "Inspiration",
-    title: "Åbne løsninger vinder frem",
-    desc: "Nedrivning af ikke-bærende vægge mellem køkken og stue skaber luftigere, mere sociale hjem — og er ofte en overkommelig opgave med stor effekt.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={28} height={28} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 21V8l9-5 9 5v13"/>
-        <path d="M3 21h18"/>
-        <path d="M9 21V12h6v9"/>
-      </svg>
-    ),
-  },
-  {
-    tag: "Pas på",
-    title: "Tjek altid momsregistrering og forsikring",
-    desc: "Før du skriver under på noget, bør du sikre dig, at håndværkeren er momsregistreret og har den rette ansvarsforsikring. Det er din sikkerhed, hvis noget går galt.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={28} height={28} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5z"/>
-        <polyline points="9 12 11 14 15 10"/>
-      </svg>
-    ),
-  },
-  {
-    tag: "Pas på",
-    title: "Få altid en skriftlig aftale",
-    desc: "Fast pris, tidsplan og omfang skal stå sort på hvidt, inden arbejdet går i gang. Et mundtligt overslag er ikke nok til at holde nogen fast på noget.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={28} height={28} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/>
-        <line x1="16" y1="17" x2="8" y2="17"/>
-      </svg>
-    ),
-  },
+const workItems = [
+  { img: "/renovations/stue-after.jpg", tag: "Stue", title: "Stuerenovering", desc: "Total renovering — nyt loft, gulv og indbyggede spots." },
+  { img: "/renovations/loft-after.jpg", tag: "Loftrum", title: "Loftrum", desc: "Råt loftrum ombygget til lyst, moderne værelse." },
+  { img: "/renovations/sovevaerelse-after.jpg", tag: "Soveværelse", title: "Soveværelse", desc: "Nyt gulv, malerbehandling og indretning." },
 ];
 
 const contactItems = [
@@ -297,10 +190,10 @@ export default async function Home() {
 
           <div className="flex flex-wrap items-center gap-[1.2rem]">
             <a
-              href="#tilbudsberegner"
+              href="#contact"
               className="btn-hero-primary font-[var(--font-body)] px-[2.2rem] py-[.9rem] text-[.78rem] font-bold tracking-[.14em] uppercase no-underline"
             >
-              Beregn dit tilbud
+              Få et gratis tilbud
             </a>
             <a
               href="#services"
@@ -405,76 +298,26 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ── PROJEKTER (Before/After) ── */}
-      <section id="projekter" className="section-pad bg-[var(--white)]">
+      {/* ── ARBEJDE ── */}
+      <section id="arbejde" className="section-pad bg-[var(--off-white)]">
         <p className="section-label">Vores arbejde</p>
         <h2 className="section-title">
-          Se <em>forvandlingen</em>
+          Udvalgte <em>projekter</em>
         </h2>
         <p className="copy mb-14 max-w-[520px]">
-          Træk i skillelinjen for at se forskellen fra før til efter. Alle billeder er
-          fra virkelige projekter udført af August Råd &amp; Byg.
+          Et udpluk af rigtige projekter udført af August Råd &amp; Byg.
         </p>
 
-        <div className="grid-projekter">
-          <BeforeAfterSlider
-            before="/renovations/stue-before.jpg"
-            after="/renovations/stue-after.jpg"
-            title="Stuerenovering"
-            description="Total renovering af stue — nyt loft, gulv, vægge og indbyggede spots."
-            autoPlay
-          />
-          <BeforeAfterSlider
-            before="/renovations/loft-before.jpg"
-            after="/renovations/loft-after.jpg"
-            title="Loftrum"
-            description="Råt loftrum med eksponeret murværk ombygget til lyst og moderne værelse."
-            autoPlay
-          />
-          <BeforeAfterSlider
-            before="/renovations/sovevaerelse-before.jpg"
-            after="/renovations/sovevaerelse-after.jpg"
-            title="Soveværelse"
-            description="Fra afrensede råvægge til færdigt soveværelse med nyt gulv og malerbehandling."
-            autoPlay
-          />
-        </div>
-      </section>
-
-      {/* ── GALLERI ── */}
-      <section id="galleri" className="section-pad bg-[var(--off-white)]">
-        <p className="section-label">Billeder fra vores projekter</p>
-        <h2 className="section-title">
-          Galleri
-        </h2>
-        <p className="copy mb-10 max-w-[520px]">
-          Klik på et billede for at se det i fuld størrelse. Filtrér efter rum for at finde
-          netop det, du er interesseret i.
-        </p>
-        <Gallery />
-      </section>
-
-      {/* ── RÅD & INSPIRATION ── */}
-      <section id="raad" className="section-pad bg-[var(--white)]">
-        <p className="section-label">Gode råd</p>
-        <h2 className="section-title">
-          Råd &amp; <em>inspiration</em>
-        </h2>
-        <p className="copy mb-10 max-w-[560px]">
-          Gør-det-selv-tips, inspiration til dit næste projekt, og hvad du bør holde øje med,
-          når du samarbejder med en håndværker.
-        </p>
-
-        <div className="grid-services">
-          {adviceItems.map((item, i) => (
-            <FadeUp key={item.title} delay={Math.floor(i % 3) * 0.1}>
-              <div className="service-card h-full">
-                <span className="advice-tag mb-5">{item.tag}</span>
-                <div className="mb-5">{item.icon}</div>
-                <p className="card-title mb-[.6rem]">{item.title}</p>
-                <p className="copy-sm">{item.desc}</p>
+        <div className="grid-work">
+          {workItems.map((w) => (
+            <div key={w.title}>
+              <div className="work-thumb">
+                <Image src={w.img} alt={w.title} fill sizes="33vw" className="object-cover" />
+                <span className="work-thumb-tag">{w.tag}</span>
               </div>
-            </FadeUp>
+              <p className="card-title mt-5 mb-[.4rem]" style={{ fontSize: "1.15rem" }}>{w.title}</p>
+              <p className="copy-sm">{w.desc}</p>
+            </div>
           ))}
         </div>
       </section>
@@ -547,41 +390,6 @@ export default async function Home() {
             </FadeUp>
           ))}
         </div>
-      </section>
-
-      {/* ── GRATIS GUIDE (lead magnet) ── */}
-      <section id="guide" className="section-pad bg-[var(--white)]">
-        <div className="mx-auto max-w-[640px] text-center">
-          <p className="eyebrow mx-auto mb-4 justify-center">Gratis download</p>
-          <h2 className="section-title mx-auto text-center">
-            Sådan planlægger du <em>dit byggeprojekt</em>
-          </h2>
-          <p className="copy mx-auto mb-8">
-            Få vores gratis guide med 5 konkrete trin, typiske faldgruber og de spørgsmål du
-            bør stille din håndværker — send direkte til din e-mail.
-          </p>
-          <div className="flex justify-center">
-            <EmailCaptureForm
-              source="lead_magnet"
-              ctaLabel="Send mig guiden →"
-              successMessage="Tjek din indbakke — guiden er på vej!"
-              downloadHref="/downloads/byggeguide.pdf"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ── TILBUDSBEREGNER ── */}
-      <section id="tilbudsberegner" className="section-pad bg-[var(--navy)]">
-        <p className="section-label section-label-light">Prisestimat</p>
-        <h2 className="section-title section-title-light">
-          Hvad koster dit <em>projekt?</em>
-        </h2>
-        <p className="max-w-[520px] font-[var(--font-body)] text-[.95rem] leading-[1.75] font-light text-[rgba(255,255,255,.55)]">
-          Få et vejledende prisestimat på få minutter. Angiv projekttype, størrelse og
-          din tidsramme — vi kontakter dig med et præcist tilbud.
-        </p>
-        <PriceCalculator />
       </section>
 
       {/* ── CONTACT ── */}

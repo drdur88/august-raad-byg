@@ -12,15 +12,17 @@ august-raad-byg/
 │   ├── actions/
 │   │   └── contact.ts          # Server Action — sender email via Resend
 │   ├── components/
-│   │   ├── BeforeAfterSlider.tsx   # Før/efter billede-slider
 │   │   ├── ContactForm.tsx         # Kontaktformular med validering
 │   │   ├── CountUp.tsx             # Animerede tæller-tal
 │   │   ├── FadeUp.tsx              # Fade-in animation ved scroll
 │   │   ├── FloatingCall.tsx        # Flydende opkaldsknap (mobil)
+│   │   ├── Footer.tsx              # Bundtekst
+│   │   ├── HeroMedia.tsx           # Hero-billede/video
 │   │   └── Navbar.tsx              # Navigation med scroll-spy
+│   ├── om-os/page.tsx           # "Om os" siden
 │   ├── globals.css             # CSS-variabler, responsive grids
 │   ├── layout.tsx              # Root layout, fonte, meta-tags
-│   └── page.tsx                # Hele forsiden (alle sektioner)
+│   └── page.tsx                # Forsiden (hero, ydelser, om os, arbejde, proces, anmeldelser, kontakt)
 │
 ├── public/
 │   ├── logo.svg                # Logo til lys baggrund
@@ -69,9 +71,9 @@ Kopiér `.env.example` til `.env.local` og udfyld:
 
 ### Lead-database (Supabase)
 
-Alle formularer (kontaktformular, tilbudsberegner, nyhedsbrev) gemmer et lead i en
-Supabase-database ud over at sende email — så du kan se/eksportere alle
-henvendelser i ét overblik, selv dem der aldrig blev til en sag.
+Kontaktformularen gemmer et lead i en Supabase-database ud over at sende email —
+så du kan se/eksportere alle henvendelser i ét overblik, selv dem der aldrig
+blev til en sag.
 
 1. Opret gratis projekt på [supabase.com](https://supabase.com)
 2. Åbn **SQL Editor** i dit projekt og kør indholdet af [`supabase/schema.sql`](supabase/schema.sql)
@@ -138,13 +140,10 @@ Kør `npm run build` — output havner i `out/`-mappen.
 
 | Hvad skal ændres | Fil | Søg efter |
 |------------------|-----|-----------|
-| Telefon / email / adresse | `app/page.tsx` | `+45 12 34 56 78` |
+| Telefon / email / adresse | `app/page.tsx`, `app/layout.tsx`, `app/components/Footer.tsx` | `+45 12 34 56 78` |
 | Kundeanmeldelser | `app/page.tsx` | `quote:` i testimonials-arrayet |
-| Ydelser (9 kort) | `app/page.tsx` | `const services` øverst |
+| Ydelser | `app/page.tsx` | `const services` øverst |
 | Processkridt | `app/page.tsx` | `const processSteps` |
-| Før/efter billeder | `public/renovations/` | Udskift filer, opdatér paths i `page.tsx` |
-| Galleri-billeder | `app/components/Gallery.tsx` | `galleryImages`-arrayet |
-| Prisberegner-satser | `app/components/PriceCalculator.tsx` | `pricePerM2`, `minTotal` |
-| Farver | `app/globals.css` | `:root { --navy, --gold ... }` |
-| Fonte | `app/layout.tsx` | `Cormorant_Garamond`, `Jost` |
-| Lead-magnet PDF | `public/downloads/byggeguide.pdf` | Genskab med `python scripts/generate_byggeguide.py` |
+| Projektbilleder | `public/renovations/` | Udskift filer, opdatér paths i `workItems` i `page.tsx` |
+| Farver | `app/globals.css` | `:root { --navy, --gold, --off-white ... }` |
+| Fonte | `app/layout.tsx` | `Space_Grotesk`, `Jost` |

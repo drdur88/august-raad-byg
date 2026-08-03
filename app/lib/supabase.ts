@@ -1,7 +1,7 @@
 import "server-only";
 import { createClient } from "@supabase/supabase-js";
 
-export type LeadSource = "contact_form" | "price_calculator" | "newsletter" | "lead_magnet";
+export type LeadSource = "contact_form";
 
 export interface LeadRow {
   source: LeadSource;
@@ -10,11 +10,6 @@ export interface LeadRow {
   email?: string;
   project_type?: string;
   message?: string;
-  size_m2?: number;
-  postal_code?: string;
-  timing?: string;
-  estimate_low?: string;
-  estimate_high?: string;
   budget_range?: string;
   referral_source?: string;
   preferred_contact_time?: string;
