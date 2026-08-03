@@ -274,19 +274,18 @@ export default async function Home() {
         <div className="about-content-pad flex flex-col justify-center bg-[var(--off-white)] py-24 pr-[5vw] pl-20">
           <p className="section-label">Om August Råd &amp; Byg</p>
           <h2 className="section-title">
-            Bygget på <em>tre stærke ben</em>
+            Renovering med <em>overblik og ro</em>
           </h2>
 
           <p className="copy mb-6">
-            En skammel med tre ben vælter aldrig — uanset hvor ujævnt underlaget er. Sådan
-            arbejder vi også: rådgivning, planlægning og bygherrestyring er tre lige stærke
-            ben, der bærer hvert eneste renoveringsprojekt. Vi kombinerer solid erfaring med
-            et stærkt netværk af screenede håndværkere, som udfører selve arbejdet.
+            Vi hjælper private boligejere med at træffe de rigtige beslutninger, før
+            håndværkerne går i gang. Sammen skaber vi overblik over ønsker, økonomi, tilbud
+            og tidsplan, så projektet bliver tydeligt fra starten.
           </p>
           <p className="copy mb-10">
-            Uanset om du står med en enkelt opgave eller en gennemgribende renovering af hele
-            boligen, hjælper vi dig med at få overblik, styr på økonomien og en tryg proces
-            fra start til slut.
+            Når arbejdet begynder, følger vi processen tæt og koordinerer med de rette
+            fagfolk. Du får én fast sparringspartner, klare aftaler og en renovering, der
+            bliver styret hele vejen til aflevering.
           </p>
 
           <Link
