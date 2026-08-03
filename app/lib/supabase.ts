@@ -8,11 +8,11 @@ export interface LeadRow {
   name?: string;
   phone?: string;
   email?: string;
+  postal_code?: string;
   project_type?: string;
   message?: string;
   budget_range?: string;
-  referral_source?: string;
-  preferred_contact_time?: string;
+  desired_start?: string;
 }
 
 /**

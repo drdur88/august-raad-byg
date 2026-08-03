@@ -6,7 +6,7 @@ export default function Footer() {
           August <span className="text-[var(--gold)]">Råd</span>{" "}&amp; Byg
         </p>
         <p className="max-w-[420px] font-[var(--font-body)] text-[.82rem] leading-[1.6]">
-          Bygge- og rådgivning i Danmark — nybyggeri, renovering og projektledelse.
+          Rådgivning og bygherrestyring ved renovering — for private boligejere i Danmark.
         </p>
       </div>
 

@@ -7,11 +7,11 @@ export async function sendContactEmail(data: {
   name: string;
   phone: string;
   email: string;
+  postalCode: string;
   projectType: string;
   message: string;
   budgetRange?: string;
-  referralSource?: string;
-  preferredContactTime?: string;
+  desiredStart?: string;
 }) {
   const apiKey = process.env.RESEND_API_KEY;
 
@@ -20,11 +20,11 @@ export async function sendContactEmail(data: {
     name: data.name,
     phone: data.phone,
     email: data.email,
+    postal_code: data.postalCode,
     project_type: data.projectType,
     message: data.message,
     budget_range: data.budgetRange,
-    referral_source: data.referralSource,
-    preferred_contact_time: data.preferredContactTime,
+    desired_start: data.desiredStart,
   });
 
   // If no API key is configured yet, log and pretend success
@@ -45,12 +45,12 @@ export async function sendContactEmail(data: {
         `Navn:              ${data.name}`,
         `Telefon:           ${data.phone || "–"}`,
         `E-mail:            ${data.email}`,
-        `Projekttype:       ${data.projectType || "–"}`,
-        `Budget:            ${data.budgetRange || "–"}`,
-        `Hørt om os via:    ${data.referralSource || "–"}`,
-        `Foretrukken tid:   ${data.preferredContactTime || "–"}`,
+        `Postnummer:        ${data.postalCode}`,
+        `Type af projekt:   ${data.projectType || "–"}`,
+        `Forventet budget:  ${data.budgetRange || "–"}`,
+        `Ønsket opstart:    ${data.desiredStart || "–"}`,
         ``,
-        `Besked:`,
+        `Beskrivelse:`,
         data.message,
       ].join("\n"),
     });

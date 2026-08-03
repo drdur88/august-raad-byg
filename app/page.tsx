@@ -4,94 +4,109 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactForm from "./components/ContactForm";
 import FadeUp from "./components/FadeUp";
-import CountUp from "./components/CountUp";
 import HeroMedia from "./components/HeroMedia";
+import FAQ from "./components/FAQ";
+import PackageCTA from "./components/PackageCTA";
 
 // Drop an .mp4 into public/videos/hero.mp4 and the hero automatically
 // plays it instead of the static photo — no code changes needed.
 const HERO_VIDEO_PATH = path.join(process.cwd(), "public", "videos", "hero.mp4");
 
-const services = [
+const checkIcon = (
+  <svg viewBox="0 0 24 24" width={16} height={16} fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 6L9 17l-5-5" />
+  </svg>
+);
+
+const packages = [
   {
     num: "01",
-    name: "Nybyggeri",
-    desc: "Vi opfører nye boliger og erhvervsbygninger fra grunden med fokus på kvalitet, holdbarhed og æstetik. Fra fundament til nøglefærdig løsning.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={36} height={36} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-        <polyline points="9 22 9 12 15 12 15 22"/>
-      </svg>
-    ),
+    name: "Renoveringsafklaring",
+    desc: "Vi gennemgår dine ønsker, boligen og projektets muligheder. Du får en prioriteret plan, et foreløbigt budget og klare næste skridt.",
+    items: [
+      "Indledende gennemgang af projektet",
+      "Afklaring af ønsker og prioriteringer",
+      "Foreløbig budgetramme",
+      "Vurdering af projektets næste skridt",
+      "Kort skriftlig opsamling",
+    ],
+    price: "Introduktionspris: 3.495 kr. inkl. moms",
+    cta: "Book renoveringsafklaring",
   },
   {
     num: "02",
-    name: "Renovering",
-    desc: "Modernisering og istandsættelse af eksisterende ejendomme. Vi respekterer bygningens karakter og tilfører ny funktionalitet og livskvalitet.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={36} height={36} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
-      </svg>
-    ),
+    name: "Tilbuds- og aftaletjek",
+    desc: "Vi sammenligner op til tre håndværkertilbud, finder mangler og uklare formuleringer og hjælper dig med at vælge det rigtige – ikke bare det billigste.",
+    items: [
+      "Gennemgang af op til tre tilbud",
+      "Sammenligning af pris og omfang",
+      "Identifikation af mangler og forbehold",
+      "Kontrol af betalingsplan og tidsplan",
+      "Spørgsmål, du bør stille håndværkerne",
+      "Anbefaling af næste skridt",
+    ],
+    price: "Fra 4.995 kr. inkl. moms",
+    cta: "Få tjekket mine tilbud",
+    featured: true,
   },
   {
     num: "03",
-    name: "Byggerådgivning",
-    desc: "Uafhængig rådgivning i alle faser af dit byggeprojekt. Vi hjælper med myndighedskrav, tidsplaner, budget og kvalitetssikring.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={36} height={36} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <line x1="12" y1="8" x2="12" y2="12"/>
-        <line x1="12" y1="16" x2="12.01" y2="16"/>
-      </svg>
-    ),
+    name: "Projektklar renovering",
+    desc: "Vi udarbejder arbejdsbeskrivelse, budgetramme, tidsplan og tilbudsgrundlag, så håndværkerne beregner pris på den samme opgave.",
+    items: [
+      "Afklaring af projektets omfang",
+      "Samlet arbejdsbeskrivelse",
+      "Budget- og risikoramme",
+      "Overordnet tidsplan",
+      "Tilbudsgrundlag til håndværkere",
+      "Hjælp til indhentning og sammenligning af tilbud",
+    ],
+    price: "Fra 14.995 kr. inkl. moms",
+    cta: "Gør mit projekt klar",
   },
   {
     num: "04",
-    name: "Projektledelse",
-    desc: "Professionel styring af byggeprocessen – koordinering af håndværkere, leverandører og myndigheder. Ét kontaktpunkt for hele projektet.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={36} height={36} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-        <line x1="8" y1="21" x2="16" y2="21"/>
-        <line x1="12" y1="17" x2="12" y2="21"/>
-      </svg>
-    ),
-  },
-  {
-    num: "05",
-    name: "Tømrerarbejde",
-    desc: "Alt i tømrer- og snedkerarbejde – døre, vinduer, trapper, terrasser og indbyggede løsninger udført i massivt træ.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={36} height={36} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 20l7-7"/>
-        <path d="M9 13l6.5-6.5a2.12 2.12 0 013 3L12 16"/>
-        <path d="M15 6l3-3 4 4-3 3"/>
-      </svg>
-    ),
-  },
-  {
-    num: "06",
-    name: "VVS & el-installation",
-    desc: "Fagkyndig installation, service og reparation af vand, varme og el – udført af certificerede fagfolk med fokus på sikkerhed.",
-    icon: (
-      <svg viewBox="0 0 24 24" width={36} height={36} fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2s7 8.5 7 13a7 7 0 11-14 0c0-4.5 7-13 7-13z"/>
-      </svg>
-    ),
+    name: "Bygherrestyring",
+    desc: "Vi fungerer som kundens faste kontaktpunkt og følger økonomi, tidsplan, ændringer, håndværkere og aflevering gennem projektet.",
+    items: [
+      "Koordinering med håndværkere",
+      "Opfølgning på økonomi og tidsplan",
+      "Håndtering af ændringer og tillægsarbejde",
+      "Løbende status til kunden",
+      "Gennemgang før betalinger",
+      "Hjælp ved aflevering og mangelregistrering",
+    ],
+    price: "Fast pris efter projektets omfang eller 1.195 kr. pr. time inkl. moms",
+    cta: "Tal med os om bygherrestyring",
   },
 ];
 
 const processSteps = [
-  { num: "1", title: "Første møde", desc: "Vi lytter til dine ønsker og behov. Gratis og uforpligtende gennemgang af dit projekt." },
-  { num: "2", title: "Tilbud & Plan", desc: "Vi udarbejder et detaljeret tilbud med tidsplan og fast pris – ingen skjulte omkostninger." },
-  { num: "3", title: "Udførelse", desc: "Vi eksekverer projektet med løbende opdateringer og fuld gennemsigtighed undervejs." },
-  { num: "4", title: "Aflevering", desc: "Grundig gennemgang og overdragelse. Vi sikrer, at alt lever op til dine forventninger." },
+  { num: "1", title: "Gratis afklaringssamtale", desc: "Vi tager en kort samtale om dit projekt og vurderer, hvilken hjælp der giver mening." },
+  { num: "2", title: "Afklaring og plan", desc: "Vi skaber overblik over ønsker, økonomi, risici og næste skridt." },
+  { num: "3", title: "Tilbud og forberedelse", desc: "Vi hjælper med arbejdsbeskrivelse, tilbud og valg af håndværkere." },
+  { num: "4", title: "Styring og aflevering", desc: "Vi følger projektet og hjælper med at holde styr på økonomi, kvalitet og tidsplan." },
+];
+
+const valueItems = [
+  {
+    title: "Sammenlignelige tilbud",
+    desc: "Håndværkerne prissætter den samme opgave, så du kan sammenligne tilbud direkte.",
+  },
+  {
+    title: "Færre overraskelser",
+    desc: "Ændringer og risici bliver synlige tidligere i forløbet – ikke efter regningen lander.",
+  },
+  {
+    title: "Styr på aftalerne",
+    desc: "Beslutninger, priser og deadlines bliver dokumenteret, så alle ved, hvad der er aftalt.",
+  },
 ];
 
 const workItems = [
-  { img: "/renovations/stue-after.jpg", tag: "Stue", title: "Stuerenovering", desc: "Total renovering — nyt loft, gulv og indbyggede spots." },
-  { img: "/renovations/loft-after.jpg", tag: "Loftrum", title: "Loftrum", desc: "Råt loftrum ombygget til lyst, moderne værelse." },
-  { img: "/renovations/sovevaerelse-after.jpg", tag: "Soveværelse", title: "Soveværelse", desc: "Nyt gulv, malerbehandling og indretning." },
+  { img: "/renovations/stue-after.jpg", tag: "Stue", title: "Stuerenovering", desc: "Total renovering planlagt og fulgt til dørs — nyt loft, gulv og indbyggede spots." },
+  { img: "/renovations/loft-after.jpg", tag: "Loftrum", title: "Loftrum", desc: "Råt loftrum koordineret og omdannet til lyst, moderne værelse." },
+  { img: "/renovations/sovevaerelse-after.jpg", tag: "Soveværelse", title: "Soveværelse", desc: "Nyt gulv, malerbehandling og indretning — styret fra A til Z." },
 ];
 
 const contactItems = [
@@ -132,24 +147,6 @@ const contactItems = [
   },
 ];
 
-const testimonials = [
-  {
-    quote: "August Råd & Byg stod for en total renovering af vores hus. Professionelt fra start til slut — de holdt tidsplan, budget og kommunikerede løbende. Vi kunne ikke have ønsket os bedre.",
-    name: "Mikkel H.",
-    project: "Total renovering, Aarhus",
-  },
-  {
-    quote: "Ærlig rådgivning, fast pris og ingen overraskelser. Præcis hvad vi havde brug for. Vi følte os trygge hele vejen igennem projektet.",
-    name: "Lone & Per K.",
-    project: "Tilbygning, Odense",
-  },
-  {
-    quote: "Vi er utrolig glade for resultatet. De koordinerede alle håndværkere og vi behøvede kun at forholde os til ét kontaktpunkt. Stærkt anbefalet.",
-    name: "Thomas B.",
-    project: "Projektledelse, København",
-  },
-];
-
 export default async function Home() {
   const heroVideoSrc = existsSync(HERO_VIDEO_PATH) ? "/videos/hero.mp4" : undefined;
 
@@ -162,7 +159,7 @@ export default async function Home() {
           <HeroMedia
             videoSrc={heroVideoSrc}
             imageSrc="/renovations/stue-after.jpg"
-            imageAlt="Renoveret stue af August Råd & Byg"
+            imageAlt="Renoveret stue"
           />
         </div>
         <div
@@ -175,17 +172,16 @@ export default async function Home() {
         />
 
         {/* Content */}
-        <div className="relative z-[2] flex min-h-screen flex-col justify-center px-[6vw] pt-32 pb-36">
-          <p className="eyebrow mb-6">Bygge- og Rådgivning</p>
+        <div className="relative z-[2] flex min-h-screen flex-col justify-center px-[6vw] pt-32 pb-32">
+          <p className="eyebrow mb-6">Renoveringsrådgivning</p>
 
           <h1 className="heading-hero heading-hero-light mb-6 max-w-[900px]">
-            Kvalitet i <em>hvert eneste</em> projekt
+            Få styr på renoveringen, <em>før den bliver dyr</em>
           </h1>
 
-          <p className="copy copy-light mb-10 max-w-[460px]">
-            August Råd &amp; Byg tilbyder professionel rådgivning og udførelse inden for
-            byggeri. Vi guider dig fra første idé til færdigt resultat – med ekspertise,
-            ærlighed og håndværksmæssig stolthed.
+          <p className="copy copy-light mb-10 max-w-[480px]">
+            Vi hjælper private boligejere med at planlægge, prissætte og styre
+            renoveringer – fra den første idé til den sidste gennemgang.
           </p>
 
           <div className="flex flex-wrap items-center gap-[1.2rem]">
@@ -193,56 +189,60 @@ export default async function Home() {
               href="#contact"
               className="btn-hero-primary font-[var(--font-body)] px-[2.2rem] py-[.9rem] text-[.78rem] font-bold tracking-[.14em] uppercase no-underline"
             >
-              Få et gratis tilbud
+              Book en gratis afklaringssamtale
             </a>
             <a
-              href="#services"
+              href="#ydelser"
               className="btn-ghost-light font-[var(--font-body)] text-[.78rem] font-medium tracking-[.14em] uppercase no-underline"
             >
-              Vores ydelser <span className="arrow">→</span>
+              Se vores rådgivningspakker <span className="arrow">→</span>
             </a>
           </div>
-        </div>
 
-        {/* Stats bar */}
-        <div className="absolute inset-x-0 bottom-0 z-[2] grid grid-cols-3 border-t border-[rgba(255,255,255,.15)] bg-[rgba(20,22,27,.65)] backdrop-blur-sm">
-          {[
-            { target: 15, suffix: "+", label: "Års erfaring" },
-            { target: 200, suffix: "+", label: "Projekter" },
-            { target: 100, suffix: "%", label: "Tilfredse kunder" },
-          ].map((s, i) => (
-            <div
-              key={s.label}
-              className={`px-4 py-7 text-center text-[var(--white)] sm:py-8 ${i > 0 ? "border-l border-[rgba(255,255,255,.15)]" : ""}`}
-            >
-              <span className="block font-[var(--font-heading)] text-[2rem] font-bold leading-none sm:text-[2.6rem]">
-                <CountUp target={s.target} suffix={s.suffix} />
-              </span>
-              <span className="mt-[.4rem] block font-[var(--font-body)] text-[.65rem] tracking-[.12em] uppercase opacity-70 sm:text-[.7rem] sm:tracking-[.15em]">
-                {s.label}
-              </span>
-            </div>
-          ))}
+          <p className="mt-9 font-[var(--font-body)] text-[.78rem] font-normal tracking-[.03em] text-[rgba(255,255,255,.55)]">
+            Uafhængig rådgivning · Klare priser · Én fast kontaktperson
+          </p>
         </div>
       </section>
 
-      {/* ── SERVICES ── */}
-      <section id="services" className="section-pad bg-[var(--white)]">
-        <p className="section-label">Hvad vi tilbyder</p>
+      {/* ── YDELSER (rådgivningspakker) ── */}
+      <section id="ydelser" className="section-pad bg-[var(--white)]">
+        <p className="section-label">Vores rådgivningspakker</p>
         <h2 className="section-title">
-          Vores <em>ydelser</em>
+          Sådan hjælper <em>vi dig</em>
         </h2>
+        <p className="copy max-w-[560px]">
+          Fire pakker, der kan bruges enkeltvis eller i forlængelse af hinanden — alt efter
+          hvor i dit renoveringsprojekt du står.
+        </p>
 
-        <div className="grid-services">
-          {services.map((s, i) => (
-            <FadeUp key={s.num} delay={Math.floor(i % 3) * 0.1}>
-              <div className="service-card h-full">
-                <span className="mb-6 block font-[var(--font-heading)] text-[3.5rem] font-bold leading-none text-[var(--light-grey)]">
-                  {s.num}
+        <div className="grid-packages">
+          {packages.map((p, i) => (
+            <FadeUp key={p.num} delay={i * 0.08}>
+              <div className={`package-card h-full${p.featured ? " featured" : ""}`}>
+                {p.featured && <span className="package-badge">Mest populær</span>}
+                <span className="mb-4 block font-[var(--font-heading)] text-[2rem] font-bold leading-none text-[var(--light-grey)]">
+                  {p.num}
                 </span>
-                <div className="mb-[1.2rem]">{s.icon}</div>
-                <p className="card-title mb-[.8rem]">{s.name}</p>
-                <p className="copy-sm">{s.desc}</p>
+                <p className="card-title mb-[.6rem]" style={{ fontSize: "1.2rem" }}>{p.name}</p>
+                <p className="copy-sm mb-5">{p.desc}</p>
+
+                <ul className="package-list">
+                  {p.items.map((item) => (
+                    <li key={item}>
+                      {checkIcon}
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="package-price">{p.price}</p>
+
+                <PackageCTA
+                  projectType={p.name}
+                  label={p.cta}
+                  className="form-submit block text-center no-underline"
+                />
               </div>
             </FadeUp>
           ))}
@@ -255,7 +255,7 @@ export default async function Home() {
         <div className="about-img-mh relative min-h-[600px] overflow-hidden bg-[var(--navy)]">
           <Image
             src="/renovations/loft-after.jpg"
-            alt="Renoveret loftrum af August Råd & Byg"
+            alt="Renoveret loftrum"
             fill
             sizes="50vw"
             className="kenburns-alt object-cover"
@@ -266,7 +266,7 @@ export default async function Home() {
             style={{ background: "linear-gradient(180deg, rgba(45,55,72,.3) 0%, rgba(45,55,72,.8) 100%)" }}
           />
           <blockquote className="absolute bottom-12 left-12 right-12 border-l-2 border-[var(--gold)] pl-6 font-[var(--font-heading)] text-[1.6rem] leading-[1.5] font-semibold text-[var(--white)]">
-            &ldquo;Vi bygger ikke bare huse – vi skaber rammer for menneskers liv.&rdquo;
+            &ldquo;Et godt renoveringsprojekt starter med et godt overblik.&rdquo;
           </blockquote>
         </div>
 
@@ -279,14 +279,14 @@ export default async function Home() {
 
           <p className="copy mb-6">
             En skammel med tre ben vælter aldrig — uanset hvor ujævnt underlaget er. Sådan
-            arbejder vi også: håndværk, rådgivning og projektledelse er tre lige stærke ben,
-            der bærer hvert eneste projekt. Vi kombinerer solid håndværksmæssig erfaring med
-            et stærkt netværk af screenede specialister.
+            arbejder vi også: rådgivning, planlægning og bygherrestyring er tre lige stærke
+            ben, der bærer hvert eneste renoveringsprojekt. Vi kombinerer solid erfaring med
+            et stærkt netværk af screenede håndværkere, som udfører selve arbejdet.
           </p>
           <p className="copy mb-10">
-            Uanset om du drømmer om et nyt hjem, ønsker at renovere dit eksisterende
-            eller har brug for professionel rådgivning til et erhvervsprojekt, er vi
-            klar til at gøre din vision til virkelighed.
+            Uanset om du står med en enkelt opgave eller en gennemgribende renovering af hele
+            boligen, hjælper vi dig med at få overblik, styr på økonomien og en tryg proces
+            fra start til slut.
           </p>
 
           <Link
@@ -300,12 +300,12 @@ export default async function Home() {
 
       {/* ── ARBEJDE ── */}
       <section id="arbejde" className="section-pad bg-[var(--off-white)]">
-        <p className="section-label">Vores arbejde</p>
+        <p className="section-label">Vores erfaring</p>
         <h2 className="section-title">
           Udvalgte <em>projekter</em>
         </h2>
         <p className="copy mb-14 max-w-[520px]">
-          Et udpluk af rigtige projekter udført af August Råd &amp; Byg.
+          Et udpluk af renoveringsprojekter, vi har hjulpet med at planlægge og følge til dørs.
         </p>
 
         <div className="grid-work">
@@ -322,11 +322,11 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ── PROCESS ── */}
-      <section id="process" className="section-pad bg-[var(--navy)] text-[var(--white)]">
-        <p className="section-label section-label-light">Sådan arbejder vi</p>
+      {/* ── SÅDAN FOREGÅR DET ── */}
+      <section id="proces" className="section-pad bg-[var(--navy)] text-[var(--white)]">
+        <p className="section-label section-label-light">Kunderejsen</p>
         <h2 className="section-title section-title-light">
-          En enkel og <em>tryg</em> proces
+          Sådan <em>foregår det</em>
         </h2>
 
         <div className="relative mt-16">
@@ -354,37 +354,27 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
-      <section id="anmeldelser" className="section-pad bg-[var(--off-white)]">
-        <p className="section-label">Hvad kunderne siger</p>
+      {/* ── HVAD KOSTER MANGLENDE OVERBLIK ── */}
+      <section id="overblik" className="section-pad bg-[var(--white)]">
+        <p className="section-label">Hvorfor overblik betaler sig</p>
         <h2 className="section-title">
-          Bygget på <em>tillid</em>
+          Hvad koster <em>manglende overblik?</em>
         </h2>
+        <p className="copy max-w-[620px]">
+          Uklare tilbud, udefinerede opgaver og mundtlige aftaler er blandt de hyppigste
+          årsager til ekstraregninger, forsinkelser og konflikter i renoveringsprojekter.
+        </p>
 
-        <div className="grid-testimonials mt-14">
-          {testimonials.map((t, i) => (
-            <FadeUp key={i} delay={i * 0.1}>
-              <div className="flex h-full flex-col justify-between border-t-[3px] border-[var(--gold)] bg-[var(--white)] p-10">
-                {/* Stars */}
-                <div className="mb-[1.2rem] flex gap-1">
-                  {[...Array(5)].map((_, j) => (
-                    <svg key={j} width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                    </svg>
-                  ))}
+        <div className="grid-value">
+          {valueItems.map((v, i) => (
+            <FadeUp key={v.title} delay={i * 0.1}>
+              <div className="flex items-start gap-4">
+                <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--gold)]">
+                  {checkIcon}
                 </div>
-
-                <p className="mb-6 flex-1 font-[var(--font-heading)] text-[1.1rem] leading-[1.6] font-semibold text-[var(--navy)]">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-
                 <div>
-                  <p className="font-[var(--font-body)] text-[.88rem] font-medium text-[var(--navy)]">
-                    {t.name}
-                  </p>
-                  <p className="font-[var(--font-body)] text-[.78rem] font-light tracking-[.05em] text-[var(--grey)]">
-                    {t.project}
-                  </p>
+                  <p className="card-title mb-[.3rem]" style={{ fontSize: "1.05rem" }}>{v.title}</p>
+                  <p className="copy-sm">{v.desc}</p>
                 </div>
               </div>
             </FadeUp>
@@ -392,19 +382,28 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ── FAQ ── */}
+      <section id="faq" className="section-pad bg-[var(--off-white)]">
+        <p className="section-label">Spørgsmål &amp; svar</p>
+        <h2 className="section-title">
+          Godt at <em>vide</em>
+        </h2>
+        <FAQ />
+      </section>
+
       {/* ── CONTACT ── */}
       <section id="contact" className="section-pad bg-[var(--off-white)]">
         <p className="section-label">Kom i kontakt</p>
         <h2 className="section-title">
-          Lad os tale om<br />dit <em>projekt</em>
+          Lad os tale om<br />dit <em>renoveringsprojekt</em>
         </h2>
 
         <div className="grid-contact">
           {/* Contact info */}
           <div>
             <p className="copy mb-10">
-              Vi tilbyder altid en gratis og uforpligtende samtale om dit projekt.
-              Tag fat i os – vi er klar til at hjælpe dig fra første dag.
+              Vi tilbyder altid en gratis og uforpligtende afklaringssamtale om dit
+              renoveringsprojekt. Tag fat i os – vi er klar til at hjælpe dig fra første dag.
             </p>
 
             <div className="flex flex-col gap-[1.2rem]">

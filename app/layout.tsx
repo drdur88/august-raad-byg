@@ -22,17 +22,17 @@ const jost = Jost({
 const siteUrl = "https://augustraadogbyg.dk";
 
 export const metadata: Metadata = {
-  title: "August Råd & Byg – Bygge- og Rådgivning",
+  title: "August Råd & Byg – Rådgivning og bygherrestyring ved renovering",
   description:
-    "Professionel byggerådgivning, renovering, projektledelse og kvalitetssikring. Over 15 års erfaring. Kontakt August Råd & Byg i dag for et gratis og uforpligtende tilbud.",
+    "Vi hjælper private boligejere med at planlægge, prissætte og styre renoveringer – fra afklaring til aflevering. Book en gratis afklaringssamtale med August Råd & Byg.",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: siteUrl,
   },
   openGraph: {
-    title: "August Råd & Byg – Bygge- og Rådgivning",
+    title: "August Råd & Byg – Rådgivning og bygherrestyring ved renovering",
     description:
-      "Professionel byggerådgivning, renovering, projektledelse og kvalitetssikring. Over 15 års erfaring i Danmark.",
+      "Uafhængig rådgivning, tilbudstjek og bygherrestyring til private boligejere, der renoverer.",
     url: siteUrl,
     siteName: "August Råd & Byg",
     locale: "da_DK",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "August Råd & Byg",
-    description: "Professionel byggerådgivning og renovering. Over 15 års erfaring.",
+    description: "Rådgivning og bygherrestyring ved renovering for private boligejere.",
   },
   robots: {
     index: true,
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
-  "@type": "GeneralContractor",
+  "@type": "ProfessionalService",
   name: "August Råd & Byg",
   image: `${siteUrl}/logo-real.png`,
   url: siteUrl,
@@ -70,7 +70,7 @@ const localBusinessJsonLd = {
   },
   priceRange: "$$",
   description:
-    "Professionel byggerådgivning, renovering, projektledelse og kvalitetssikring i Danmark. Over 15 års erfaring.",
+    "Uafhængig rådgivning, tilbudstjek og bygherrestyring ved renovering for private boligejere i Danmark.",
 };
 
 export default function RootLayout({

@@ -5,23 +5,27 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 const navLinks: { label: string; anchor: string }[] = [
-  { label: "Ydelser", anchor: "services" },
-  { label: "Arbejde", anchor: "arbejde" },
-  { label: "Proces",  anchor: "process" },
+  { label: "Ydelser", anchor: "ydelser" },
+  { label: "Proces",  anchor: "proces" },
+  { label: "FAQ",     anchor: "faq" },
 ];
 
-const sectionIds = ["services", "about", "arbejde", "process", "anmeldelser", "contact"];
+const sectionIds = ["ydelser", "about", "arbejde", "proces", "faq", "contact"];
 
 export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   const [open, setOpen]         = useState(false);
-  const [scrolled, setScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > 40);
+  const [scrolled, setScrolled] = useState(false);
   const [active, setActive]     = useState("");
 
   useEffect(() => {
-    // Scroll shadow
+    // Scroll shadow — server always renders unscrolled, so sync the real
+    // value once mounted instead of reading window during render (avoids a
+    // hydration mismatch if the page loads already scrolled).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setScrolled(window.scrollY > 40);
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -70,8 +74,8 @@ export default function Navbar() {
           {/* Brand */}
           <Link href="/"
             style={{
-              fontFamily: "var(--font-heading)", fontSize: "1.25rem",
-              fontWeight: 600, letterSpacing: ".08em",
+              fontFamily: "var(--font-heading)", fontSize: "1.55rem",
+              fontWeight: 600, letterSpacing: ".06em",
               color: "var(--navy)", textDecoration: "none",
             }}
           >
@@ -108,7 +112,7 @@ export default function Navbar() {
                   fontWeight: 500, textDecoration: "none", display: "inline-block",
                 }}
               >
-                Kontakt os
+                Book gratis samtale
               </Link>
             </li>
           </ul>
@@ -149,7 +153,7 @@ export default function Navbar() {
                     fontWeight: 500, textDecoration: "none", display: "inline-block",
                   }}
                 >
-                  Kontakt os
+                  Book gratis samtale
                 </Link>
               </li>
             </ul>

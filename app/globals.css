@@ -6,7 +6,7 @@
   --gold-light: #d4b896;
   --off-white:  #f7f6f4;
   --white:      #ffffff;
-  --grey:       #8a8a8a;
+  --grey:       #6b6b6b;
   --light-grey: #e8e6e2;
 
   --font-heading: var(--font-space-grotesk), 'Helvetica Neue', Arial, sans-serif;
@@ -53,6 +53,7 @@ body {
 /* ── Reusable copy/text primitives ── */
 .eyebrow {
   display: inline-flex;
+  align-self: flex-start;
   align-items: center;
   font-family: var(--font-body);
   font-size: .7rem;
@@ -230,19 +231,21 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 /* ── Responsive layout grids ── */
 .grid-about   { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
 .grid-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 4rem; }
+.grid-packages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
 .grid-process  { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 4rem; }
+.grid-value    { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 3rem; }
 .grid-contact  { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-top: 4rem; align-items: start; }
 .grid-form-row    { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .grid-work         { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
-.grid-testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
 
 @media (max-width: 1024px) {
   .grid-about     { grid-template-columns: 1fr; }
   .grid-contact   { grid-template-columns: 1fr; gap: 3rem; }
   .grid-services  { grid-template-columns: repeat(2, 1fr); }
+  .grid-packages  { grid-template-columns: repeat(2, 1fr); }
   .grid-process   { grid-template-columns: repeat(2, 1fr); }
+  .grid-value     { grid-template-columns: 1fr; gap: 1.75rem; }
   .grid-work         { grid-template-columns: 1fr; max-width: 560px; }
-  .grid-testimonials { grid-template-columns: 1fr; }
   .about-img-mh   { min-height: 320px; }
   .about-content-pad { padding: 4rem 6vw !important; }
   section { padding: 5rem 6vw !important; }
@@ -250,10 +253,10 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 
 @media (max-width: 768px) {
   .grid-services     { grid-template-columns: 1fr; }
+  .grid-packages     { grid-template-columns: 1fr; }
   .grid-process      { grid-template-columns: 1fr 1fr; }
   .grid-form-row     { grid-template-columns: 1fr; }
   .grid-work         { grid-template-columns: 1fr; max-width: 100%; }
-  .grid-testimonials { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
@@ -306,7 +309,7 @@ textarea.form-input { resize: vertical; min-height: 120px; }
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: #000;
+  background: var(--light-grey);
 }
 .work-thumb img {
   transition: transform .5s ease;
@@ -326,4 +329,155 @@ textarea.form-input { resize: vertical; min-height: 120px; }
   text-transform: uppercase;
   font-weight: 500;
   padding: 3px 9px;
+  z-index: 2;
+}
+
+/* ── Carousel (before/after image rotation) ── */
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, .85);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--navy);
+  z-index: 3;
+  transition: background .2s;
+}
+.carousel-nav:hover { background: var(--white); color: var(--gold); }
+.carousel-prev { left: 8px; }
+.carousel-next { right: 8px; }
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  z-index: 3;
+}
+.carousel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, .6);
+  padding: 0;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.carousel-dot.active { background: var(--white); transform: scale(1.3); }
+@media (prefers-reduced-motion: reduce) {
+  .carousel-dot, .carousel-nav { transition: none; }
+}
+
+/* ── Rådgivningspakker (pricing cards) ── */
+.package-card {
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 2rem;
+  border: 1px solid var(--light-grey);
+  background: var(--white);
+  position: relative;
+}
+.package-card.featured {
+  border-color: var(--gold);
+  box-shadow: 0 12px 40px rgba(45, 55, 72, .12);
+}
+.package-badge {
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  background: var(--gold);
+  color: var(--navy);
+  font-family: var(--font-body);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .35rem .8rem;
+}
+.package-list {
+  list-style: none;
+  margin: 0 0 1.6rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  flex: 1;
+}
+.package-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  font-family: var(--font-body);
+  font-size: .84rem;
+  font-weight: 300;
+  color: var(--navy);
+  line-height: 1.5;
+}
+.package-list svg { flex-shrink: 0; margin-top: 3px; }
+.package-price {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 1.2rem;
+}
+
+/* ── FAQ accordion ── */
+.faq-item { border-bottom: 1px solid var(--light-grey); }
+.faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+.faq-trigger:hover { color: var(--gold); }
+.faq-trigger:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+.faq-icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--light-grey);
+  border-radius: 50%;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--gold);
+  transition: transform .25s, background .25s, color .25s;
+}
+.faq-trigger[aria-expanded="true"] .faq-icon {
+  transform: rotate(45deg);
+  background: var(--gold);
+  color: var(--white);
+  border-color: var(--gold);
+}
+.faq-panel { padding: 0 1.6rem 1.4rem 0; }
+@media (prefers-reduced-motion: reduce) {
+  .faq-icon { transition: none; }
 }
