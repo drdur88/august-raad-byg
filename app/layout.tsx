@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import FloatingCall from "./components/FloatingCall";
-import ExitIntentPopup from "./components/ExitIntentPopup";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -91,7 +90,6 @@ export default function RootLayout({
         />
         <Navbar />
         <FloatingCall />
-        <ExitIntentPopup />
         {children}
         <Footer />
       </body>
